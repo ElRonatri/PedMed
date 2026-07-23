@@ -272,6 +272,15 @@ body {
   padding-top: 0.4rem;
 }
 
+.med-source {
+  margin: 0;
+  font-size: 0.74rem;
+}
+
+.med-source a {
+  color: var(--primary);
+}
+
 .app-footer {
   margin-top: 2.5rem;
   text-align: center;

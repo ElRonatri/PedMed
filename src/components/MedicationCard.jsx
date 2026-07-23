@@ -81,6 +81,15 @@ export default function MedicationCard({ med, weightKg, ageMonths }) {
 
       <p className={`age-note age-note-${safety.level}`}>{safety.text}</p>
       <p className="general-warning">{med.generalWarning}</p>
+
+      {med.source && (
+        <p className="med-source">
+          Fuente:{' '}
+          <a href={med.source.url} target="_blank" rel="noopener noreferrer">
+            {med.source.label}
+          </a>
+        </p>
+      )}
     </article>
   )
 }

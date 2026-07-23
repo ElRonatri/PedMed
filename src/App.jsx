@@ -74,8 +74,12 @@ export default function App() {
 
       <footer className="app-footer">
         <p>
-          Referencias generales de formularios pediátricos. Los valores pueden variar según
-          protocolo institucional, indicación específica y presentación comercial disponible.
+          Dosis basadas en el{' '}
+          <a href="https://www.aeped.es/comites/cm/pediamecum" target="_blank" rel="noopener noreferrer">
+            Pediamécum de la Asociación Española de Pediatría (AEP)
+          </a>
+          . Los valores pueden variar según protocolo institucional, indicación específica y
+          presentación comercial disponible.
         </p>
       </footer>
     </div>
