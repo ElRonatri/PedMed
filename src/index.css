@@ -1,0 +1,299 @@
+:root {
+  color-scheme: light;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --bg: #f4f7fb;
+  --card-bg: #ffffff;
+  --text: #1c2733;
+  --muted: #5a6b7b;
+  --primary: #0f6f8c;
+  --primary-dark: #0a4f63;
+  --ok: #1f8a4c;
+  --ok-bg: #e6f6ec;
+  --caution: #b8790a;
+  --caution-bg: #fdf1dc;
+  --contra: #c53030;
+  --contra-bg: #fbe6e6;
+  --unknown: #6b7280;
+  --unknown-bg: #eef0f2;
+  --border: #dfe6ee;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.app-header h1 {
+  color: var(--primary-dark);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.disclaimer {
+  background: var(--contra-bg);
+  border: 1px solid var(--contra);
+  color: #7a1f1f;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.patient-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.field {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--primary-dark);
+}
+
+.field input,
+.field select {
+  padding: 0.55rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 1rem;
+}
+
+.age-input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.age-input-group input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.field-hint {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.form-error {
+  color: var(--contra);
+  font-weight: 600;
+  margin: 0.25rem 0 1rem;
+}
+
+.category-section {
+  margin-top: 2rem;
+}
+
+.category-section h2 {
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.med-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.med-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 6px solid var(--unknown);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.safety-border-ok {
+  border-left-color: var(--ok);
+}
+.safety-border-caution {
+  border-left-color: var(--caution);
+}
+.safety-border-contraindicated {
+  border-left-color: var(--contra);
+}
+.safety-border-unknown {
+  border-left-color: var(--unknown);
+}
+
+.med-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.35rem 0.5rem;
+}
+
+.med-card-header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.med-indication {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.med-placeholder {
+  margin: 0;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.dose-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 0.6rem 0.7rem;
+}
+
+.dose-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+}
+
+.dose-label {
+  color: var(--muted);
+}
+
+.dose-value {
+  font-weight: 600;
+  text-align: right;
+}
+
+.dose-value em {
+  display: block;
+  font-style: normal;
+  color: var(--caution);
+  font-weight: 500;
+  font-size: 0.78rem;
+}
+
+.safety-badge {
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.safety-ok {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+.safety-caution {
+  background: var(--caution-bg);
+  color: var(--caution);
+}
+.safety-contraindicated {
+  background: var(--contra-bg);
+  color: var(--contra);
+}
+.safety-unknown {
+  background: var(--unknown-bg);
+  color: var(--unknown);
+}
+
+.age-note {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.age-note-ok {
+  color: var(--ok);
+}
+.age-note-caution {
+  color: var(--caution);
+}
+.age-note-contraindicated {
+  color: var(--contra);
+  font-weight: 600;
+}
+.age-note-unknown {
+  color: var(--unknown);
+}
+
+.general-warning {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  border-top: 1px dashed var(--border);
+  padding-top: 0.4rem;
+}
+
+.app-footer {
+  margin-top: 2.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #131a22;
+    --card-bg: #1b2530;
+    --text: #e7edf3;
+    --muted: #93a3b3;
+    --border: #2b3947;
+    --ok-bg: #123322;
+    --caution-bg: #3a2c10;
+    --contra-bg: #3a1616;
+    --unknown-bg: #262f38;
+  }
+
+  .dose-block {
+    background: #202b36;
+  }
+}
