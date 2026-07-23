@@ -56,9 +56,16 @@ body {
   color: #7a1f1f;
   padding: 0.9rem 1rem;
   border-radius: 8px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-size: 0.92rem;
   line-height: 1.4;
+}
+
+.disclaimer-hospital {
+  background: #2b1230;
+  border-color: #6b2a80;
+  color: #f4d9ff;
+  margin-bottom: 1.5rem;
 }
 
 .patient-form {
@@ -141,6 +148,26 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+}
+
+.setting-ribbon {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 0.35rem 0.6rem;
+  margin: -1rem -1.1rem 0.2rem;
+  border-radius: 10px 10px 0 0;
+}
+
+.setting-ribbon-hospital {
+  background: #2b1230;
+  color: #f4d9ff;
+}
+
+.setting-ribbon-controlled {
+  background: #3a2210;
+  color: #ffe1bf;
 }
 
 .safety-border-ok {

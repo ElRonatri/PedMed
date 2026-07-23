@@ -37,6 +37,16 @@ export default function App() {
         cualquier medicamento a un paciente pediátrico.
       </div>
 
+      <div className="disclaimer disclaimer-hospital" role="alert">
+        <strong>Contenido de anestesiología/cuidados críticos:</strong> además de los medicamentos
+        ambulatorios habituales, esta app incluye fármacos de uso <strong>exclusivamente
+        hospitalario</strong> (anestesia, sedación, relajantes musculares, vasopresores,
+        antiarrítmicos y reanimación), marcados con una cinta morada, y opioides/sedantes
+        controlados, marcados con una cinta naranja. Esos medicamentos requieren vía IV/IM/IO,
+        monitorización continua, capacidad de soporte de vía aérea y personal entrenado; no están
+        pensados para administración en el hogar ni sin supervisión médica directa.
+      </div>
+
       <PatientForm
         weight={weight}
         onWeightChange={setWeight}

@@ -1,13 +1,26 @@
 import { computeDose, getAgeSafety } from '../utils/doseCalculator'
 import SafetyBadge from './SafetyBadge'
 
+const NO_WEIGHT_NEEDED_TYPES = ['ageTier', 'fixed']
+
+const RIBBON_TEXT = {
+  hospital: 'Solo uso hospitalario — requiere vía IV/IM/IO, monitorización continua y personal capacitado',
+  controlled: 'Medicamento controlado — requiere prescripción y supervisión médica estricta; riesgo de dependencia/depresión respiratoria',
+}
+
 export default function MedicationCard({ med, weightKg, ageMonths }) {
   const hasWeight = weightKg !== null && weightKg > 0
   const safety = getAgeSafety(med, ageMonths)
-  const dose = hasWeight ? computeDose(med, weightKg) : null
+  const dose =
+    hasWeight || NO_WEIGHT_NEEDED_TYPES.includes(med.doseType)
+      ? computeDose(med, weightKg, ageMonths)
+      : null
+  const ribbonText = RIBBON_TEXT[med.setting]
 
   return (
     <article className={`med-card safety-border-${safety.level}`}>
+      {ribbonText && <div className={`setting-ribbon setting-ribbon-${med.setting}`}>{ribbonText}</div>}
+
       <header className="med-card-header">
         <h3>{med.name}</h3>
         <SafetyBadge level={safety.level} />
@@ -15,7 +28,7 @@ export default function MedicationCard({ med, weightKg, ageMonths }) {
 
       <p className="med-indication">{med.indication}</p>
 
-      {!hasWeight && (
+      {!NO_WEIGHT_NEEDED_TYPES.includes(med.doseType) && !hasWeight && (
         <p className="med-placeholder">Ingrese el peso del paciente para calcular la dosis.</p>
       )}
 
@@ -75,6 +88,86 @@ export default function MedicationCard({ med, weightKg, ageMonths }) {
           <div className="dose-row">
             <span className="dose-label">Frecuencia</span>
             <span className="dose-value">{med.frequencyText}</span>
+          </div>
+        </div>
+      )}
+
+      {hasWeight && dose && dose.kind === 'weightDose' && (
+        <div className="dose-block">
+          <div className="dose-row">
+            <span className="dose-label">Dosis por administración</span>
+            <span className="dose-value">
+              {dose.singleMin === dose.singleMax
+                ? `${dose.singleMin} ${dose.unit}`
+                : `${dose.singleMin} – ${dose.singleMax} ${dose.unit}`}
+              {dose.cappedBySingleMax && <em> (tope máximo aplicado)</em>}
+            </span>
+          </div>
+          <div className="dose-row">
+            <span className="dose-label">Vía / Frecuencia</span>
+            <span className="dose-value">{med.frequencyText}</span>
+          </div>
+          {dose.dailyMax !== null && (
+            <div className="dose-row">
+              <span className="dose-label">Dosis máxima diaria</span>
+              <span className="dose-value">
+                {dose.dailyMax} {dose.unit}/día
+                {dose.cappedByDailyMax && <em> (tope máximo aplicado)</em>}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {hasWeight && dose && dose.kind === 'infusion' && (
+        <div className="dose-block">
+          <div className="dose-row">
+            <span className="dose-label">Tasa para este paciente</span>
+            <span className="dose-value">
+              {dose.rateMin === dose.rateMax
+                ? `${dose.rateMin} ${dose.unit}/${dose.timeUnit}`
+                : `${dose.rateMin} – ${dose.rateMax} ${dose.unit}/${dose.timeUnit}`}
+              {dose.cappedByMaxRate && <em> (tope máximo aplicado)</em>}
+            </span>
+          </div>
+          <div className="dose-row">
+            <span className="dose-label">Vía / Preparación</span>
+            <span className="dose-value">{med.frequencyText}</span>
+          </div>
+          <p className="med-placeholder">
+            No se calcula mL/h: depende de la concentración de preparación de la infusión según
+            protocolo institucional.
+          </p>
+        </div>
+      )}
+
+      {dose && dose.kind === 'ageTier' && (
+        <div className="dose-block">
+          {dose.needsAge ? (
+            <p className="med-placeholder">Ingrese la edad del paciente para ver la dosis correspondiente.</p>
+          ) : (
+            <div className="dose-row">
+              <span className="dose-label">Dosis según edad</span>
+              <span className="dose-value">{dose.doseText}</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {hasWeight && dose && dose.kind === 'weightTier' && (
+        <div className="dose-block">
+          <div className="dose-row">
+            <span className="dose-label">Dosis según peso</span>
+            <span className="dose-value">{dose.doseText}</span>
+          </div>
+        </div>
+      )}
+
+      {dose && dose.kind === 'fixed' && (
+        <div className="dose-block">
+          <div className="dose-row">
+            <span className="dose-label">Dosis</span>
+            <span className="dose-value">{dose.doseText}</span>
           </div>
         </div>
       )}
