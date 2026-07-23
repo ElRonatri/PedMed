@@ -1,4 +1,5 @@
 export default function PatientForm({
+  idPrefix,
   weight,
   onWeightChange,
   ageValue,
@@ -6,12 +7,15 @@ export default function PatientForm({
   ageUnit,
   onAgeUnitChange,
 }) {
+  const weightId = `${idPrefix}-weight`
+  const ageId = `${idPrefix}-age`
+
   return (
     <section className="patient-form" aria-label="Datos del paciente">
       <div className="field">
-        <label htmlFor="weight">Peso del paciente (kg)</label>
+        <label htmlFor={weightId}>Peso del paciente (kg)</label>
         <input
-          id="weight"
+          id={weightId}
           type="number"
           inputMode="decimal"
           min="0"
@@ -23,10 +27,10 @@ export default function PatientForm({
       </div>
 
       <div className="field">
-        <label htmlFor="age">Edad (opcional, recomendada)</label>
+        <label htmlFor={ageId}>Edad (opcional, recomendada)</label>
         <div className="age-input-group">
           <input
-            id="age"
+            id={ageId}
             type="number"
             inputMode="decimal"
             min="0"
@@ -36,7 +40,7 @@ export default function PatientForm({
             onChange={(e) => onAgeValueChange(e.target.value)}
           />
           <select
-            aria-label="Unidad de edad"
+            aria-label={`Unidad de edad (${idPrefix})`}
             value={ageUnit}
             onChange={(e) => onAgeUnitChange(e.target.value)}
           >
