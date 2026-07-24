@@ -47,6 +47,7 @@ La aplicación está dividida en dos pestañas, cada una con su **propio** formu
 - [Pediamécum](https://www.aeped.es/comites/cm/pediamecum) — Asociación Española de Pediatría (AEP).
 - [Guía-ABE](https://www.guia-abe.es/files/pdf/antibioticos_dosificacion_lactantes_ninos_2019.pdf) — Antibióticos: dosis en lactantes y niños (Grupo de Patología Infecciosa AEPap, 2019).
 - [Stony Brook Medicine — Anesthesiology, Peds Drug Dosages](https://renaissance.stonybrookmedicine.edu/anesthesiology/teaching/peds-drug-dosages) — referencia de dosis pediátricas de anestesiología/cuidados críticos.
+- [Guía Rápida de Dosificación en Pediatría](https://www.guiafarmapediatrica.es/indice/antihistaminicos-h1-orales) — antihistamínicos H1 orales de 1ª y 2ª generación.
 
 Cuando un medicamento se enriqueció con más de una fuente, la tarjeta muestra todos los enlaces.
 Además, se agregaron advertencias de seguridad vigentes que las fuentes originales no
@@ -137,7 +138,7 @@ src/
 
 ## Listado completo de medicamentos
 
-160 medicamentos en 17 categorías. Se indica entre paréntesis la pestaña donde aparece cada uno:
+169 medicamentos en 17 categorías. Se indica entre paréntesis la pestaña donde aparece cada uno:
 **(P)** Principal (Ambulatorio/Urgencias) o **(H)** Hospitalización/UCI/Quirófano.
 
 ### Antipirético / Analgésico
@@ -166,7 +167,9 @@ Ondansetrón (P) · Granisetrón (P) · Metoclopramida (P) · Omeprazol (P) · P
 Prometazina (P) · Trimetobenzamida (P)
 
 ### Antihistamínico / Antipruriginoso
-Difenhidramina (P) · Hidroxizina (P)
+Difenhidramina (P) · Hidroxizina (P) · Dexclorfeniramina (P) · Ketotifeno (P) · Cetirizina (P) ·
+Desloratadina (P) · Ebastina (P) · Levocetirizina (P) · Loratadina (P) · Mequitazina (P) ·
+Rupatadina (P)
 
 ### Corticosteroide
 Prednisolona (P) · Dexametasona (P) · Hidrocortisona (P) · Metilprednisolona (P)
