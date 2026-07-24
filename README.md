@@ -60,6 +60,7 @@ peso/edad (el valor ingresado en una no afecta a las otras):
 - [Stony Brook Medicine — Anesthesiology, Peds Drug Dosages](https://renaissance.stonybrookmedicine.edu/anesthesiology/teaching/peds-drug-dosages) — referencia de dosis pediátricas de anestesiología/cuidados críticos.
 - [Guía Rápida de Dosificación en Pediatría](https://www.guiafarmapediatrica.es/indice/antihistaminicos-h1-orales) — antihistamínicos H1 orales de 1ª y 2ª generación.
 - [Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos](https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos) (2021) — dosificación por edad gestacional/postnatal para la pestaña de Neonatología.
+- Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024), cap. 12 "Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico" — aportado por el usuario como PDF; sin URL pública conocida, por lo que su tarjeta muestra el nombre de la fuente como texto (sin enlace).
 
 Cuando un medicamento se enriqueció con más de una fuente, la tarjeta muestra todos los enlaces.
 Además, se agregaron advertencias de seguridad vigentes que las fuentes originales no
@@ -152,7 +153,7 @@ src/
 
 ## Listado completo de medicamentos
 
-205 medicamentos en 19 categorías. Se indica entre paréntesis la pestaña donde aparece cada uno:
+229 medicamentos en 19 categorías. Se indica entre paréntesis la pestaña donde aparece cada uno:
 **(P)** Principal (Ambulatorio/Urgencias), **(H)** Hospitalización/UCI/Quirófano o **(N)**
 Neonatología (UCI neonatal, ver listado aparte al final por su calculadora distinta).
 
@@ -169,13 +170,25 @@ Cefalexina (P) · Cefixima (P) · Cefpodoxima (P) · Ceftibuteno (P) · Ceftriax
 Cefuroxima axetilo (P) · Ciprofloxacino (P) · Claritromicina (P) · Clindamicina (P) ·
 Cloxacilina (P) · Cotrimoxazol (Trimetoprim-Sulfametoxazol) (P) · Trimetoprim (P) ·
 Doxiciclina (P) · Eritromicina (P) · Etambutol (P) · Fosfomicina (P) · Fosfomicina/Trometamol (P) ·
-Isoniacida (P) · Josamicina (P) · Linezolid (P) · Metronidazol (P) · Midecamicina (P) ·
-Nitrofurantoína (P) · Penicilina G (P) · Penicilina G-benzatina (P) · Penicilina V (P) ·
-Pirazinamida (P) · Rifampicina (P) · Sulfadiazina (P) · Telitromicina (P) · Amikacina (H) ·
-Ampicilina (H) · Ampicilina/Sulbactam (Unasyn) (H) · Cefazolina (H) · Cefepima (H) ·
-Cefonicid (H) · Cefotaxima (H) · Ceftazidima (H) · Cefuroxima IV (H) · Ertapenem (H) ·
+Isoniacida (Isoniazida) (P) · Josamicina (P) · Levofloxacino (P) · Linezolid (P) ·
+Metronidazol (P) · Midecamicina (P) · Moxifloxacino (P) · Nitrofurantoína (P) · Penicilina G (P) ·
+Penicilina G-benzatina (P) · Penicilina V (P) · Pirazinamida (P) · Rifampicina (P) ·
+Rifaximina (P) · Sulfadiazina (P) · Telitromicina (P) · Amikacina (H) · Ampicilina (H) ·
+Ampicilina/Sulbactam (Unasyn) (H) · Aztreonam (H) · Cefazolina (H) · Cefepima (H) ·
+Cefonicid (H) · Cefotaxima (H) · Ceftazidima (H) · Cefuroxima IV (H) ·
+Colistina (Colistimetato de sodio) (H) · Daptomicina (H) · Ertapenem (H) ·
 Estreptomicina (H) · Gentamicina (H) · Imipenem (H) · Meropenem (H) ·
-Piperacilina/Tazobactam (Zosyn) (H) · Teicoplanina (H) · Tobramicina (H) · Vancomicina (H)
+Piperacilina/Tazobactam (Zosyn) (H) · Teicoplanina (H) · Tigeciclina (H) · Tobramicina (H) ·
+Vancomicina (H)
+
+### Antifúngico
+Fluconazol (P) · Ketoconazol (P) · Terbinafina (P) · Tinidazol (P) ·
+Anfotericina B desoxicolato (H) · Anfotericina B liposomal (H) · Anidulafungina (H) ·
+Caspofungina (H) · Isavuconazol (H) · Posaconazol (H) · Voriconazol (H)
+
+### Antiviral
+Aciclovir (P) · Valaciclovir (P) · Valganciclovir (P) · Cidofovir (H) · Foscarnet (H) ·
+Ganciclovir (H)
 
 ### Antiemético
 Ondansetrón (P) · Granisetrón (P) · Metoclopramida (P) · Omeprazol (P) · Proclorperazina (P) ·

@@ -89,7 +89,7 @@ cd windows-app
 dotnet run --project PedMed.Core.Validator
 ```
 
-Verifica que los 205 medicamentos tengan IDs únicos, categorías válidas y que
+Verifica que los 229 medicamentos tengan IDs únicos, categorías válidas y que
 el motor de cálculo no arroje errores para una malla de pesos/edades (y, para
 los medicamentos de la pestaña de Neonatología, una malla de peso/edad
 gestacional/edad postnatal) — el mismo tipo de chequeo que `npm run validate`
@@ -137,7 +137,7 @@ proyectos WPF fuera de Windows. Se verificó exhaustivamente:
 
 - Compilación limpia de las 3 proyectos (`PedMed.Core`, `PedMed.Core.Validator`,
   `PedMed.Windows`), incluida la compilación de XAML.
-- Los 205 medicamentos validados sin errores (`PedMed.Core.Validator`),
+- Los 229 medicamentos validados sin errores (`PedMed.Core.Validator`),
   incluida una malla de peso/edad gestacional/edad postnatal para los 36
   medicamentos de la pestaña de Neonatología.
 - Comparación cruzada manual de varios casos representativos (todos los

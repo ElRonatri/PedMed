@@ -20,7 +20,7 @@ public sealed class MedicationCardViewModel : ViewModelBase
     public string Name => Med.Name;
     public string Indication => Med.Indication;
     public string GeneralWarning => Med.GeneralWarning;
-    public IReadOnlyList<MedicationSource> Sources => Med.Sources;
+    public IReadOnlyList<SourceLineViewModel> Sources { get; }
     public bool HasSources => Med.Sources.Count > 0;
     public bool HasRibbon => RibbonText is not null;
     public string? RibbonText { get; }
@@ -57,6 +57,7 @@ public sealed class MedicationCardViewModel : ViewModelBase
     public MedicationCardViewModel(Medication med)
     {
         Med = med;
+        Sources = med.Sources.Select(s => new SourceLineViewModel(s.Label, s.Url)).ToList();
         (RibbonText, RibbonBackground, RibbonForeground) = ComputeRibbon(med.Setting);
     }
 

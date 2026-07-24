@@ -21,7 +21,7 @@ public enum SafetyLevel
     Contraindicated,
 }
 
-public sealed record MedicationSource(string Label, string Url);
+public sealed record MedicationSource(string Label, string? Url = null);
 
 /// <summary>
 /// A single age-based safety restriction. Applies when the patient's age in months

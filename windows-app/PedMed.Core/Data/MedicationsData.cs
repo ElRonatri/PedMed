@@ -3092,20 +3092,21 @@ public static class MedicationsData
         new Medication
         {
             Id = "isoniacida",
-            Name = "Isoniacida",
+            Name = "Isoniacida (Isoniazida)",
             Category = "Antibiótico",
             DoseType = DoseType.WeightDose,
             Unit = "mg",
             PerKgMin = 10d,
-            PerKgMax = 20d,
+            PerKgMax = 15d,
             MaxSingle = 300d,
             FrequencyText = "Vía oral cada 24 horas",
-            Indication = "Tratamiento y profilaxis (quimioprofilaxis) de la tuberculosis.",
+            Indication = "Antituberculoso de primera línea, siempre como parte de un esquema combinado. También usado en quimioprofilaxis de la tuberculosis.",
             AgeFlags = Array.Empty<AgeFlag>(),
-            GeneralWarning = "Profilaxis: 10 mg/kg/día (máx. 300 mg/día). Meningitis tuberculosa: 20 mg/kg/día. Evitar en insuficiencia hepática por riesgo de hepatotoxicidad; asociar piridoxina (vitamina B6) para prevenir neuropatía periférica.",
+            GeneralWarning = "Profilaxis: 10 mg/kg/día (máx. 300 mg/día). Meningitis tuberculosa: hasta 20 mg/kg/día. Riesgo de hepatotoxicidad y neuropatía periférica: evitar en insuficiencia hepática y considerar suplementar piridoxina (vitamina B6). Tratamiento siempre bajo supervisión de programa de tuberculosis y con esquema combinado.",
             Sources = new List<MedicationSource>
             {
                 new MedicationSource("Guía-ABE — Antibióticos: dosis en lactantes y niños (2019)", "https://www.guia-abe.es/files/pdf/antibioticos_dosificacion_lactantes_ninos_2019.pdf"),
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
             },
         },
         new Medication
@@ -4343,6 +4344,490 @@ public static class MedicationsData
             Sources = new List<MedicationSource>
             {
                 new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "aztreonam",
+            Name = "Aztreonam",
+            Category = "Antibiótico",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 90d,
+            PerKgMax = 120d,
+            MaxSingle = 8000d,
+            FrequencyText = "IV cada 6–8 horas",
+            Indication = "Monobactámico para infecciones graves por gramnegativos, alternativa en alergia a betalactámicos.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Riesgo de hipoglucemia. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "colistina",
+            Name = "Colistina (Colistimetato de sodio)",
+            Category = "Antibiótico",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 2.5d,
+            PerKgMax = 5d,
+            FrequencyText = "IV cada 6–12 horas (dosis expresada en colistina base activa, CBA)",
+            Indication = "Polimixina de reserva para infecciones graves por gramnegativos multirresistentes.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Riesgo de nefrotoxicidad y neurotoxicidad. Se sugiere interconsulta a infectología o farmacia clínica antes de usar. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "daptomicina",
+            Name = "Daptomicina",
+            Category = "Antibiótico",
+            DoseType = DoseType.AgeTier,
+            Venue = "hospital",
+            Setting = "hospital",
+            AgeTiers = new List<AgeTierEntry>
+            {
+                new AgeTierEntry(2d, "6 mg/kg/dosis IV cada 12 horas"),
+                new AgeTierEntry(72d, "8–10 mg/kg/dosis IV cada 24 horas"),
+                new AgeTierEntry(double.PositiveInfinity, "4–6 mg/kg/dosis IV cada 24 horas"),
+            },
+            FrequencyText = "Ver dosis: la dosis y frecuencia dependen de la edad",
+            Indication = "Lipopéptido de reserva para infecciones graves por grampositivos resistentes, incluido SARM.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "No indicada en neumonía (inactivada por el surfactante pulmonar). Riesgo de miopatía: monitorizar CK. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "levofloxacino",
+            Name = "Levofloxacino",
+            Category = "Antibiótico",
+            DoseType = DoseType.WeightDose,
+            Unit = "mg",
+            PerKgMin = 6d,
+            PerKgMax = 10d,
+            MaxSingle = 750d,
+            FrequencyText = "IV/VO cada 12 horas",
+            Indication = "Fluoroquinolona de reserva para infecciones respiratorias u otras graves sin alternativa de menor espectro.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Uso off-label en pediatría (no aprobado por edad en muchos países) por riesgo de artropatía; reservar para cuando no exista alternativa adecuada. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "moxifloxacino",
+            Name = "Moxifloxacino",
+            Category = "Antibiótico",
+            DoseType = DoseType.WeightDose,
+            Unit = "mg",
+            PerKgMin = 5d,
+            PerKgMax = 10d,
+            MaxSingle = 400d,
+            FrequencyText = "IV/VO cada 12–24 horas",
+            Indication = "Fluoroquinolona de reserva con cobertura anaerobia, para infecciones graves sin alternativa de menor espectro.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Uso off-label en pediatría por riesgo de artropatía; reservar para cuando no exista alternativa adecuada. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "rifaximina",
+            Name = "Rifaximina",
+            Category = "Antibiótico",
+            DoseType = DoseType.AgeTier,
+            AgeTiers = new List<AgeTierEntry>
+            {
+                new AgeTierEntry(144d, "15–30 mg/kg/día VO cada 8 horas"),
+                new AgeTierEntry(double.PositiveInfinity, "400 mg VO cada 8 horas"),
+            },
+            FrequencyText = "Ver dosis: la dosis depende de la edad",
+            Indication = "Antibiótico oral no absorbible para infecciones gastrointestinales (p. ej. diarrea del viajero) y encefalopatía hepática.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Prácticamente no se absorbe por vía oral, por lo que actúa solo a nivel intestinal. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "tigeciclina",
+            Name = "Tigeciclina",
+            Category = "Antibiótico",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 1d,
+            PerKgMax = 2d,
+            MaxSingle = 50d,
+            FrequencyText = "IV cada 12 horas (mantención; dosis de carga inicial de 1.5–3 mg/kg IV)",
+            Indication = "Glicilciclina de reserva para infecciones intraabdominales o de piel/partes blandas complicadas, por microorganismos multirresistentes.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "No usar en bacteriemia primaria (niveles séricos bajos). Náuseas/vómitos frecuentes. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "anfotericina-b-desoxicolato",
+            Name = "Anfotericina B desoxicolato",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 0.5d,
+            PerKgMax = 1.5d,
+            FrequencyText = "IV cada 24 horas",
+            Indication = "Antifúngico poliénico de amplio espectro para micosis invasivas graves.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Nefrotoxicidad y alteraciones electrolíticas (hipopotasemia) frecuentes. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "anfotericina-b-liposomal",
+            Name = "Anfotericina B liposomal",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 3d,
+            PerKgMax = 5d,
+            FrequencyText = "IV cada 24 horas",
+            Indication = "Formulación liposomal de anfotericina B, menor nefrotoxicidad, para micosis invasivas graves.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "anidulafungina",
+            Name = "Anidulafungina",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 0.75d,
+            PerKgMax = 1.5d,
+            MaxSingle = 200d,
+            FrequencyText = "IV cada 24 horas (mantención; dosis de carga inicial de 1.5–3 mg/kg)",
+            Indication = "Equinocandina para candidiasis invasiva, alternativa a caspofungina/micafungina.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "caspofungina",
+            Name = "Caspofungina",
+            Category = "Antifúngico",
+            DoseType = DoseType.Fixed,
+            Venue = "hospital",
+            Setting = "hospital",
+            DoseText = "Dosis de carga: 70 mg/m² de superficie corporal IV (dosis única el primer día). Dosis de mantención: 50 mg/m²/dosis IV cada 24 horas (máx. 70 mg/dosis).",
+            FrequencyText = "IV cada 24 horas (dosificado por superficie corporal, no por peso)",
+            Indication = "Equinocandina para candidiasis invasiva, alternativa en falla o intolerancia a azólicos/anfotericina.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Dosificación por superficie corporal (m²), no por kg: esta app no calcula automáticamente la superficie corporal. Calcularla aparte (fórmula de Mosteller u otra) antes de administrar. Verificar siempre contra el protocolo institucional.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "fluconazol",
+            Name = "Fluconazol",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Unit = "mg",
+            PerKgMin = 6d,
+            PerKgMax = 12d,
+            MaxSingle = 800d,
+            FrequencyText = "IV/VO cada 24 horas",
+            Indication = "Antifúngico azólico de primera línea para candidiasis mucocutánea o sistémica.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Profilaxis en inmunocomprometidos: 6 mg/kg/dosis cada 24 horas (máx. 6 mg/kg/dosis). Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "isavuconazol",
+            Name = "Isavuconazol",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 5.4d,
+            PerKgMax = 5.4d,
+            MaxSingle = 200d,
+            FrequencyText = "IV/VO cada 8 horas por 6 dosis (carga), luego cada 24 horas (mantención)",
+            Indication = "Antifúngico azólico de amplio espectro (incluida mucormicosis), alternativa a voriconazol/anfotericina.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "ketoconazol",
+            Name = "Ketoconazol",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Unit = "mg",
+            PerKgMin = 3.3d,
+            PerKgMax = 6.6d,
+            MaxSingle = 400d,
+            FrequencyText = "VO cada 24 horas",
+            Indication = "Antifúngico azólico oral para micosis cutáneas o mucocutáneas.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Riesgo de hepatotoxicidad; uso sistémico de segunda línea frente a alternativas más seguras. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "posaconazol",
+            Name = "Posaconazol",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 6d,
+            PerKgMax = 6d,
+            MaxSingle = 200d,
+            FrequencyText = "VO cada 12 horas",
+            Indication = "Antifúngico azólico de amplio espectro para profilaxis o tratamiento de micosis invasivas en inmunocomprometidos.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Mejor absorción oral con alimentos. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "terbinafina",
+            Name = "Terbinafina",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightTier,
+            WeightTiers = new List<WeightTierEntry>
+            {
+                new WeightTierEntry(20d, "62.5 mg vía oral cada 24 horas"),
+                new WeightTierEntry(40d, "125 mg vía oral cada 24 horas"),
+                new WeightTierEntry(double.PositiveInfinity, "250 mg vía oral cada 24 horas"),
+            },
+            FrequencyText = "Ver dosis: la dosis depende del peso",
+            Indication = "Antifúngico oral para dermatofitosis (tiña) y onicomicosis.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "tinidazol",
+            Name = "Tinidazol",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Unit = "mg",
+            PerKgMin = 50d,
+            PerKgMax = 50d,
+            MaxSingle = 2000d,
+            FrequencyText = "VO cada 24 horas",
+            Indication = "Antiparasitario/antifúngico nitroimidazólico para tricomoniasis, giardiasis y amebiasis.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "voriconazol",
+            Name = "Voriconazol",
+            Category = "Antifúngico",
+            DoseType = DoseType.AgeTier,
+            Venue = "hospital",
+            Setting = "hospital",
+            AgeTiers = new List<AgeTierEntry>
+            {
+                new AgeTierEntry(24d, "9 mg/kg/dosis IV cada 12 horas"),
+                new AgeTierEntry(144d, "9 mg/kg/dosis IV cada 12 horas por 2 dosis, luego 8 mg/kg/dosis cada 12 horas"),
+                new AgeTierEntry(180d, "9 mg/kg/dosis IV cada 12 horas por 2 dosis, luego 3–8 mg/kg/dosis cada 12 horas"),
+                new AgeTierEntry(double.PositiveInfinity, "6 mg/kg/dosis IV cada 12 horas por 2 dosis, luego 3–4 mg/kg/dosis cada 12 horas"),
+            },
+            FrequencyText = "Ver dosis: la dosis depende de la edad y de la fase de tratamiento (carga/mantención)",
+            Indication = "Antifúngico azólico de amplio espectro, primera línea en aspergilosis invasiva.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Monitorizar siempre con niveles plasmáticos. Riesgo de alteraciones visuales transitorias y fototoxicidad. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "aciclovir",
+            Name = "Aciclovir",
+            Category = "Antiviral",
+            DoseType = DoseType.WeightDose,
+            Unit = "mg",
+            PerKgMin = 20d,
+            PerKgMax = 20d,
+            MaxSingle = 800d,
+            FrequencyText = "VO cada 6 horas",
+            Indication = "Antiviral de primera línea para infecciones por virus herpes simple y varicela-zóster.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Dosis IV (uso hospitalario, ej. herpes diseminado, encefalitis): niños hasta 12 años 10–20 mg/kg/dosis cada 8 horas; mayores de 12 años 10 mg/kg/dosis cada 8 horas. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "cidofovir",
+            Name = "Cidofovir",
+            Category = "Antiviral",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 3d,
+            PerKgMax = 5d,
+            FrequencyText = "IV semanal",
+            Indication = "Antiviral de reserva para infecciones graves por citomegalovirus u otros virus DNA resistentes a otras terapias.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Nefrotoxicidad significativa: requiere hidratación y probenecid concomitantes según protocolo, y monitorización estrecha de función renal. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "foscarnet",
+            Name = "Foscarnet",
+            Category = "Antiviral",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 180d,
+            PerKgMax = 180d,
+            MaxSingle = 6000d,
+            FrequencyText = "IV cada 12 horas",
+            Indication = "Antiviral de reserva para infecciones por citomegalovirus o herpesvirus resistentes a aciclovir/ganciclovir.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Nefrotoxicidad y alteraciones electrolíticas (hipocalcemia, hipomagnesemia) frecuentes. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "ganciclovir",
+            Name = "Ganciclovir",
+            Category = "Antiviral",
+            DoseType = DoseType.WeightDose,
+            Venue = "hospital",
+            Setting = "hospital",
+            Unit = "mg",
+            PerKgMin = 5d,
+            PerKgMax = 7.5d,
+            FrequencyText = "IV cada 12–24 horas",
+            Indication = "Antiviral para infecciones graves por citomegalovirus.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Mielosupresión (neutropenia) frecuente. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "valaciclovir",
+            Name = "Valaciclovir",
+            Category = "Antiviral",
+            DoseType = DoseType.WeightDose,
+            Unit = "mg",
+            PerKgMin = 20d,
+            PerKgMax = 30d,
+            MaxSingle = 2000d,
+            FrequencyText = "VO cada 12 horas",
+            Indication = "Antiviral oral (profármaco de aciclovir), para herpes simple o varicela-zóster.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
+            },
+        },
+        new Medication
+        {
+            Id = "valganciclovir",
+            Name = "Valganciclovir",
+            Category = "Antiviral",
+            DoseType = DoseType.WeightDose,
+            Unit = "mg",
+            PerKgMin = 32d,
+            PerKgMax = 32d,
+            MaxSingle = 900d,
+            FrequencyText = "VO cada 12 horas",
+            Indication = "Antiviral oral (profármaco de ganciclovir) para infección por citomegalovirus.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Dosis alternativa según función renal: 7 × aclaramiento de creatinina (ClCr) × superficie corporal. Mielosupresión (neutropenia) frecuente. Verificar siempre contra el protocolo institucional antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Manual de Antibioterapia y Control de Infecciones para Uso Hospitalario, Hospital Clínico UC-CHRISTUS (4ª ed., 2024) — Cap. 12: Dosificación de antibióticos por vía oral o endovenosa en paciente pediátrico", null),
             },
         },
     };
