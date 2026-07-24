@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using PedMed.Core.Models;
 using PedMed.Windows.Theme;
+using PedMed.Windows.Utils;
 
 namespace PedMed.Windows.ViewModels;
 
@@ -13,10 +14,36 @@ namespace PedMed.Windows.ViewModels;
 /// </summary>
 public sealed class PatientPanelViewModel : ViewModelBase
 {
+    private const int MaxSuggestions = 8;
+
     private readonly List<MedicationCardViewModel> _allCards;
+    private readonly IReadOnlyList<string> _categoryOrder;
 
     public ObservableCollection<CategoryGroupViewModel> Categories { get; } = new();
+    public ObservableCollection<MedicationCardViewModel> Suggestions { get; } = new();
     public IReadOnlyList<string> AgeUnits { get; } = new[] { "meses", "años" };
+
+    private string _searchText = "";
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            if (SetField(ref _searchText, value))
+            {
+                OnPropertyChanged(nameof(HasSearchText));
+                RebuildCategories();
+            }
+        }
+    }
+
+    public bool HasSearchText => !string.IsNullOrEmpty(SearchText);
+
+    private int _matchCount;
+    public int MatchCount { get => _matchCount; private set => SetField(ref _matchCount, value); }
+
+    private bool _isSuggestionsOpen;
+    public bool IsSuggestionsOpen { get => _isSuggestionsOpen; set => SetField(ref _isSuggestionsOpen, value); }
 
     private string _weightText = "";
     public string WeightText
@@ -55,16 +82,45 @@ public sealed class PatientPanelViewModel : ViewModelBase
     public PatientPanelViewModel(IEnumerable<Medication> medications, IReadOnlyList<string> categoryOrder)
     {
         _allCards = medications.Select(m => new MedicationCardViewModel(m)).ToList();
+        _categoryOrder = categoryOrder;
 
-        foreach (var category in categoryOrder)
+        RebuildCategories();
+        ThemeService.ThemeChanged += RecomputeAll;
+        RecomputeAll();
+    }
+
+    /// <summary>Re-filters _allCards by SearchText and regroups the surviving cards by
+    /// category, mirroring DoseCalculatorPanel.jsx's per-render filter+group logic.</summary>
+    private void RebuildCategories()
+    {
+        var matches = _allCards.Where(c => MedicationSearch.Matches(c.Name, SearchText)).ToList();
+        MatchCount = matches.Count;
+
+        Categories.Clear();
+        foreach (var category in _categoryOrder)
         {
-            var cardsInCategory = _allCards.Where(c => c.Med.Category == category).ToList();
+            var cardsInCategory = matches.Where(c => c.Med.Category == category).ToList();
             if (cardsInCategory.Count == 0) continue;
             Categories.Add(new CategoryGroupViewModel(category, cardsInCategory));
         }
 
-        ThemeService.ThemeChanged += RecomputeAll;
-        RecomputeAll();
+        Suggestions.Clear();
+        if (HasSearchText)
+        {
+            foreach (var card in matches.Take(MaxSuggestions))
+            {
+                Suggestions.Add(card);
+            }
+        }
+        IsSuggestionsOpen = HasSearchText && Suggestions.Count > 0;
+    }
+
+    /// <summary>Selects a suggestion: narrows the search to its exact name so its card
+    /// is the (or one of the few) result(s) shown, and closes the suggestions popup.</summary>
+    public void SelectSuggestion(MedicationCardViewModel card)
+    {
+        SearchText = card.Name;
+        IsSuggestionsOpen = false;
     }
 
     private void RecomputeAll()

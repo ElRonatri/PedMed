@@ -43,6 +43,9 @@ peso/edad (el valor ingresado en una no afecta a las otras):
 
 ## Características
 
+- Buscador de medicamentos por nombre en cada pestaña: al escribir, muestra sugerencias
+  seleccionables y oculta en tiempo real las tarjetas que no coinciden; al borrar el texto,
+  vuelven a mostrarse todos los medicamentos de esa pestaña.
 - Cálculo de dosis por peso en distintas unidades (mg, mcg, mL, mEq, U) con topes de dosis
   máxima por administración y diaria.
 - Tasas de infusión continua (mcg/kg/min, U/kg/h) calculadas para el peso del paciente.
@@ -141,12 +144,14 @@ src/
 ├── data/
 │   └── medications.js             # Datos de dosificación, categorías y reglas de seguridad
 ├── utils/
-│   └── doseCalculator.js          # Lógica de cálculo de dosis (mg/kg, mcg/kg, infusiones, tramos, neonatal)
+│   ├── doseCalculator.js          # Lógica de cálculo de dosis (mg/kg, mcg/kg, infusiones, tramos, neonatal)
+│   └── searchMedications.js       # Filtro de búsqueda por nombre (normaliza tildes/mayúsculas)
 └── components/
     ├── DoseCalculatorPanel.jsx        # Formulario de peso/edad + listado de categorías (Principal/Hospital)
     ├── PatientForm.jsx                # Campos de peso y edad del paciente
     ├── NeonatalCalculatorPanel.jsx    # Formulario de peso/edad gestacional/edad postnatal (Neonatología)
     ├── NeonatalPatientForm.jsx        # Campos de peso, edad gestacional y edad postnatal del neonato
+    ├── MedicationSearchBox.jsx        # Buscador de medicamentos con sugerencias, usado por ambos paneles
     ├── MedicationCard.jsx             # Tarjeta con la dosis calculada de cada medicamento
     └── SafetyBadge.jsx                # Etiqueta visual de nivel de seguridad por edad
 ```

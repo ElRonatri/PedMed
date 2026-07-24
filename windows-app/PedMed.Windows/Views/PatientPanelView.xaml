@@ -149,6 +149,46 @@
                    FontWeight="Bold" Margin="0,0,0,8" TextWrapping="Wrap"
                    Visibility="{Binding HasFormError, Converter={StaticResource BoolToVis}}" />
 
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+            <TextBlock Text="Buscar medicamento" FontWeight="SemiBold"
+                       Foreground="{DynamicResource HeaderBrush}" Margin="0,0,0,6" />
+            <Grid Width="420" HorizontalAlignment="Left">
+                <TextBox x:Name="SearchTextBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Background="{DynamicResource InputBackgroundBrush}"
+                         Foreground="{DynamicResource TextPrimaryBrush}"
+                         BorderBrush="{DynamicResource InputBorderBrush}" Padding="8,8,28,8" FontSize="14" />
+                <Button Content="✕" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,6,0"
+                        Padding="4,0" BorderThickness="0" Background="Transparent" Cursor="Hand"
+                        Foreground="{DynamicResource TextSecondaryBrush}"
+                        Visibility="{Binding HasSearchText, Converter={StaticResource BoolToVis}}"
+                        Click="ClearSearchButton_OnClick" />
+                <Popup PlacementTarget="{Binding ElementName=SearchTextBox}" Placement="Bottom" Width="420"
+                       IsOpen="{Binding IsSuggestionsOpen}" StaysOpen="False" AllowsTransparency="True">
+                    <Border Background="{DynamicResource CardBackgroundBrush}"
+                            BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1" CornerRadius="8"
+                            MaxHeight="280" Margin="0,2,0,0">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding Suggestions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type vm:MedicationCardViewModel}">
+                                        <Button Content="{Binding Name}" HorizontalContentAlignment="Left"
+                                                Background="Transparent" BorderThickness="0" Padding="10,8"
+                                                Foreground="{DynamicResource TextPrimaryBrush}" Cursor="Hand"
+                                                Click="SuggestionButton_OnClick" Tag="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </Popup>
+            </Grid>
+            <TextBlock Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11" Margin="0,4,0,0"
+                       Visibility="{Binding HasSearchText, Converter={StaticResource BoolToVis}}">
+                <Run Text="{Binding MatchCount, Mode=OneWay}" />
+                <Run Text=" medicamento(s) coincide(n)." />
+            </TextBlock>
+        </StackPanel>
+
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <ItemsControl ItemsSource="{Binding Categories}">
                 <ItemsControl.ItemTemplate>
