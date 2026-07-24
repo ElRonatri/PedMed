@@ -82,14 +82,23 @@
                                                   Visibility="{Binding HasSources, Converter={StaticResource BoolToVis}}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock FontSize="10" TextWrapping="Wrap" Margin="0,0,0,2"
-                                                           Foreground="{DynamicResource TextSecondaryBrush}">
-                                                    <Run Text="Fuente: " />
-                                                    <Hyperlink NavigateUri="{Binding Url}"
-                                                               RequestNavigate="Hyperlink_OnRequestNavigate">
+                                                <StackPanel>
+                                                    <TextBlock FontSize="10" TextWrapping="Wrap" Margin="0,0,0,2"
+                                                               Foreground="{DynamicResource TextSecondaryBrush}"
+                                                               Visibility="{Binding HasUrl, Converter={StaticResource BoolToVis}}">
+                                                        <Run Text="Fuente: " />
+                                                        <Hyperlink NavigateUri="{Binding Url}"
+                                                                   RequestNavigate="Hyperlink_OnRequestNavigate">
+                                                            <Run Text="{Binding Label}" />
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                    <TextBlock FontSize="10" TextWrapping="Wrap" Margin="0,0,0,2"
+                                                               Foreground="{DynamicResource TextSecondaryBrush}"
+                                                               Visibility="{Binding HasNoUrl, Converter={StaticResource BoolToVis}}">
+                                                        <Run Text="Fuente: " />
                                                         <Run Text="{Binding Label}" />
-                                                    </Hyperlink>
-                                                </TextBlock>
+                                                    </TextBlock>
+                                                </StackPanel>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>

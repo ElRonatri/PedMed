@@ -237,10 +237,14 @@ export default function MedicationCard({ med, weightKg, ageMonths, gestationalWe
         <p className="med-source">
           {(Array.isArray(med.source) ? med.source : [med.source]).length > 1 ? 'Fuentes: ' : 'Fuente: '}
           {(Array.isArray(med.source) ? med.source : [med.source]).map((src, i, arr) => (
-            <span key={src.url}>
-              <a href={src.url} target="_blank" rel="noopener noreferrer">
-                {src.label}
-              </a>
+            <span key={src.url || src.label}>
+              {src.url ? (
+                <a href={src.url} target="_blank" rel="noopener noreferrer">
+                  {src.label}
+                </a>
+              ) : (
+                src.label
+              )}
               {i < arr.length - 1 ? ' · ' : ''}
             </span>
           ))}
