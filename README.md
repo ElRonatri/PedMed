@@ -12,10 +12,16 @@ restricción, precaución o contraindicado) para cada medicamento.
 > médico o farmacéutico. Verifique siempre las dosis antes de administrar cualquier
 > medicamento a un paciente pediátrico.
 
-## Dos calculadoras independientes
+> 🖥️ **¿Buscas la versión de Windows sin conexión?** Ver
+> [`windows-app/`](windows-app/README.md) — una app nativa en C#/WPF que
+> funciona 100% offline, con exactamente los mismos medicamentos y cálculos
+> que esta app web (los datos se generan automáticamente desde
+> `src/data/medications.js`, sin transcripción manual).
 
-La aplicación está dividida en dos pestañas, cada una con su **propio** formulario de peso/edad
-(el valor ingresado en una no afecta a la otra):
+## Tres calculadoras independientes
+
+La aplicación está dividida en tres pestañas, cada una con su **propio** formulario de
+peso/edad (el valor ingresado en una no afecta a las otras):
 
 - **Principal (Ambulatorio / Urgencias):** medicamentos de uso ambulatorio y de urgencias
   (antipiréticos, analgésicos, antibióticos orales/IM de dosis única, antieméticos,
@@ -25,6 +31,11 @@ La aplicación está dividida en dos pestañas, cada una con su **propio** formu
   (anestesia, sedación, relajantes musculares, vasopresores e infusiones IV continuas,
   antiarrítmicos especializados y antibióticos IV de infecciones graves). Estas tarjetas llevan
   una cinta morada de aviso; los opioides/sedantes controlados llevan además una cinta naranja.
+- **Neonatología (UCI neonatal):** antimicrobianos (antibióticos, antifúngicos y antivirales)
+  dosificados según la **edad gestacional al nacer** (semanas) y la **edad postnatal** (días)
+  del neonato **a la vez** — dos dimensiones simultáneas, en vez del peso/edad en meses o años
+  usado en las otras pestañas —, además del peso actual. Su formulario pide peso, edad
+  gestacional y edad postnatal, y su calculadora es completamente independiente de las otras dos.
 
 > La clasificación entre pestañas es una guía general basada en el contexto de uso habitual de
 > cada fármaco (vía de administración, necesidad de monitorización o de vía aérea asegurada), no
@@ -48,6 +59,7 @@ La aplicación está dividida en dos pestañas, cada una con su **propio** formu
 - [Guía-ABE](https://www.guia-abe.es/files/pdf/antibioticos_dosificacion_lactantes_ninos_2019.pdf) — Antibióticos: dosis en lactantes y niños (Grupo de Patología Infecciosa AEPap, 2019).
 - [Stony Brook Medicine — Anesthesiology, Peds Drug Dosages](https://renaissance.stonybrookmedicine.edu/anesthesiology/teaching/peds-drug-dosages) — referencia de dosis pediátricas de anestesiología/cuidados críticos.
 - [Guía Rápida de Dosificación en Pediatría](https://www.guiafarmapediatrica.es/indice/antihistaminicos-h1-orales) — antihistamínicos H1 orales de 1ª y 2ª generación.
+- [Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos](https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos) (2021) — dosificación por edad gestacional/postnatal para la pestaña de Neonatología.
 
 Cuando un medicamento se enriqueció con más de una fuente, la tarjeta muestra todos los enlaces.
 Además, se agregaron advertencias de seguridad vigentes que las fuentes originales no
@@ -122,24 +134,27 @@ iPhone/iPad conectado a la **misma red Wi-Fi**:
 
 ```
 src/
-├── App.jsx                        # Pestañas Principal / Hospitalización y disclaimers
+├── App.jsx                        # Pestañas Principal / Hospitalización / Neonatología y disclaimers
 ├── main.jsx                       # Punto de entrada de React
 ├── index.css                      # Estilos de la aplicación
 ├── data/
 │   └── medications.js             # Datos de dosificación, categorías y reglas de seguridad
 ├── utils/
-│   └── doseCalculator.js          # Lógica de cálculo de dosis (mg/kg, mcg/kg, infusiones, tramos)
+│   └── doseCalculator.js          # Lógica de cálculo de dosis (mg/kg, mcg/kg, infusiones, tramos, neonatal)
 └── components/
-    ├── DoseCalculatorPanel.jsx    # Formulario de peso/edad + listado de categorías de una pestaña
-    ├── PatientForm.jsx            # Campos de peso y edad del paciente
-    ├── MedicationCard.jsx         # Tarjeta con la dosis calculada de cada medicamento
-    └── SafetyBadge.jsx            # Etiqueta visual de nivel de seguridad por edad
+    ├── DoseCalculatorPanel.jsx        # Formulario de peso/edad + listado de categorías (Principal/Hospital)
+    ├── PatientForm.jsx                # Campos de peso y edad del paciente
+    ├── NeonatalCalculatorPanel.jsx    # Formulario de peso/edad gestacional/edad postnatal (Neonatología)
+    ├── NeonatalPatientForm.jsx        # Campos de peso, edad gestacional y edad postnatal del neonato
+    ├── MedicationCard.jsx             # Tarjeta con la dosis calculada de cada medicamento
+    └── SafetyBadge.jsx                # Etiqueta visual de nivel de seguridad por edad
 ```
 
 ## Listado completo de medicamentos
 
-169 medicamentos en 17 categorías. Se indica entre paréntesis la pestaña donde aparece cada uno:
-**(P)** Principal (Ambulatorio/Urgencias) o **(H)** Hospitalización/UCI/Quirófano.
+205 medicamentos en 19 categorías. Se indica entre paréntesis la pestaña donde aparece cada uno:
+**(P)** Principal (Ambulatorio/Urgencias), **(H)** Hospitalización/UCI/Quirófano o **(N)**
+Neonatología (UCI neonatal, ver listado aparte al final por su calculadora distinta).
 
 ### Antipirético / Analgésico
 Paracetamol (Acetaminofén) (P) · Ibuprofeno (P) · Ketorolaco (P) · Celecoxib (P)
@@ -216,6 +231,24 @@ Gluconato de calcio 10% (P) · Dextrosa (P) · Efedrina (P) · Epinefrina 1:10,0
 
 ### Misceláneo
 Dantroleno (H) · Heparina (H) · Insulina (infusión IV) (H)
+
+### Neonatología (UCI neonatal) — calculadora por edad gestacional + edad postnatal
+
+Todos de uso **(N)** exclusivamente en UCI neonatal. A diferencia del resto de la app, se
+dosifican según la edad gestacional al nacer (semanas) y la edad postnatal (días) del neonato,
+por lo que viven en su propia pestaña con su propia calculadora (peso + edad gestacional + edad
+postnatal), en vez de peso + edad en meses/años.
+
+**Antibiótico:** Amikacina · Ampicilina · Aztreonam · Cefazolina · Cefepima · Cefotaxima ·
+Cefoxitina · Ceftazidima · Ceftriaxona · Ciprofloxacino · Clindamicina · Cloxacilina ·
+Eritromicina · Imipenem-cilastatina · Linezolid · Meropenem · Metronidazol · Mupirocina ·
+Penicilina G sódica · Piperacilina-tazobactam · Rifampicina · Teicoplanina · Tobramicina ·
+Vancomicina
+
+**Antifúngico:** Anfotericina B desoxicolato · Anfotericina B liposomal · Caspofungina ·
+Fluconazol · Flucitosina · Micafungina
+
+**Antiviral:** Aciclovir · Ganciclovir · Lamivudina · Nevirapina · Valganciclovir · Zidovudina
 
 ## Descargo de responsabilidad
 

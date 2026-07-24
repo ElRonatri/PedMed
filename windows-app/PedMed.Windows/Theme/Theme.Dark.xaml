@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#131A22" />
+    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#1B2530" />
+    <SolidColorBrush x:Key="CardBorderBrush" Color="#2B3947" />
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#E7EDF3" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#93A3B3" />
+    <SolidColorBrush x:Key="HeaderBrush" Color="#7FD1E9" />
+    <SolidColorBrush x:Key="AccentBrush" Color="#4FB8DA" />
+    <SolidColorBrush x:Key="DoseBlockBackgroundBrush" Color="#202B36" />
+
+    <SolidColorBrush x:Key="DisclaimerBackgroundBrush" Color="#3A1616" />
+    <SolidColorBrush x:Key="DisclaimerBorderBrush" Color="#C53030" />
+    <SolidColorBrush x:Key="DisclaimerTextBrush" Color="#F3D9D9" />
+
+    <SolidColorBrush x:Key="HospitalBannerBackgroundBrush" Color="#2B1230" />
+    <SolidColorBrush x:Key="HospitalBannerBorderBrush" Color="#8A45A8" />
+    <SolidColorBrush x:Key="HospitalBannerTextBrush" Color="#F4D9FF" />
+
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="#1B2530" />
+    <SolidColorBrush x:Key="InputBorderBrush" Color="#2B3947" />
+    <SolidColorBrush x:Key="ErrorTextBrush" Color="#FF8080" />
+
+    <SolidColorBrush x:Key="ThemeToggleBackgroundBrush" Color="#2B3947" />
+    <SolidColorBrush x:Key="ThemeToggleTextBrush" Color="#E7EDF3" />
+
+</ResourceDictionary>

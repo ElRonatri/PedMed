@@ -153,7 +153,81 @@ function computeFixedDose(med) {
   return { kind: 'fixed', doseText: med.doseText }
 }
 
-export function computeDose(med, weightKg, ageMonths) {
+// Selecciona la dosis mg/kg (u otra unidad) y la frecuencia según el tramo de
+// edad gestacional al nacer (semanas) y edad postnatal (días) del neonato —
+// ambas dimensiones a la vez, ya que la dosificación neonatal depende de las
+// dos. Se prueban los tramos en el orden declarado y se usa el primero cuyo
+// límite superior de AMBAS dimensiones sea mayor que los valores del
+// paciente (mismo criterio "primer match" que ageTier/weightTier, pero en 2D).
+function computeNeonatalTierDose(med, weightKg, gestationalWeeks, postnatalDays) {
+  if (
+    gestationalWeeks === null ||
+    gestationalWeeks === undefined ||
+    Number.isNaN(gestationalWeeks) ||
+    postnatalDays === null ||
+    postnatalDays === undefined ||
+    Number.isNaN(postnatalDays)
+  ) {
+    return { kind: 'neonatalTier', needsInput: true }
+  }
+
+  const tiers = med.neonatalTiers
+  const tier =
+    tiers.find((t) => gestationalWeeks < t.maxGestationalWeeks && postnatalDays < t.maxPostnatalDays) ||
+    tiers[tiers.length - 1]
+
+  const hasWeight = typeof weightKg === 'number' && weightKg > 0
+  const rawMin = hasWeight ? weightKg * tier.perKgMin : null
+  const rawMax = hasWeight ? weightKg * tier.perKgMax : null
+  const doseMin = rawMin !== null && tier.maxSingle ? Math.min(rawMin, tier.maxSingle) : rawMin
+  const doseMax = rawMax !== null && tier.maxSingle ? Math.min(rawMax, tier.maxSingle) : rawMax
+  const capped = Boolean(hasWeight && tier.maxSingle && rawMax > tier.maxSingle)
+
+  return {
+    kind: 'neonatalTier',
+    needsInput: false,
+    needsWeight: !hasWeight,
+    doseMin: doseMin !== null ? round(doseMin, 2) : null,
+    doseMax: doseMax !== null ? round(doseMax, 2) : null,
+    unit: med.unit,
+    frequencyText: tier.frequencyText,
+    capped,
+  }
+}
+
+// Igual que computeNeonatalTierDose, pero para fármacos cuya tabla original
+// tiera por PESO ACTUAL (no edad gestacional) + edad postnatal — se usa el
+// mismo peso ya ingresado para el cálculo de la dosis y para elegir el tramo.
+function computeNeonatalWeightTierDose(med, weightKg, postnatalDays) {
+  const hasWeight = typeof weightKg === 'number' && weightKg > 0
+  if (!hasWeight || postnatalDays === null || postnatalDays === undefined || Number.isNaN(postnatalDays)) {
+    return { kind: 'neonatalWeightTier', needsInput: true, needsWeight: !hasWeight }
+  }
+
+  const tiers = med.neonatalWeightTiers
+  const tier =
+    tiers.find((t) => weightKg < t.maxWeightKg && postnatalDays < t.maxPostnatalDays) ||
+    tiers[tiers.length - 1]
+
+  const rawMin = weightKg * tier.perKgMin
+  const rawMax = weightKg * tier.perKgMax
+  const doseMin = tier.maxSingle ? Math.min(rawMin, tier.maxSingle) : rawMin
+  const doseMax = tier.maxSingle ? Math.min(rawMax, tier.maxSingle) : rawMax
+  const capped = Boolean(tier.maxSingle && rawMax > tier.maxSingle)
+
+  return {
+    kind: 'neonatalWeightTier',
+    needsInput: false,
+    needsWeight: false,
+    doseMin: round(doseMin, 2),
+    doseMax: round(doseMax, 2),
+    unit: med.unit,
+    frequencyText: tier.frequencyText,
+    capped,
+  }
+}
+
+export function computeDose(med, weightKg, ageMonths, gestationalWeeks, postnatalDays) {
   if (med.doseType === 'azithromycin') {
     return computeAzithromycinDose(med, weightKg)
   }
@@ -171,6 +245,12 @@ export function computeDose(med, weightKg, ageMonths) {
   }
   if (med.doseType === 'fixed') {
     return computeFixedDose(med)
+  }
+  if (med.doseType === 'neonatalTier') {
+    return computeNeonatalTierDose(med, weightKg, gestationalWeeks, postnatalDays)
+  }
+  if (med.doseType === 'neonatalWeightTier') {
+    return computeNeonatalWeightTierDose(med, weightKg, postnatalDays)
   }
   return computeStandardDose(med, weightKg)
 }
