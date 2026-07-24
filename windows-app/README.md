@@ -21,8 +21,11 @@ windows-app/
 │   └── Services/DoseCalculator.cs  # Port fiel de src/utils/doseCalculator.js
 ├── PedMed.Core.Validator/       # Consola: valida los datos y el motor de cálculo
 └── PedMed.Windows/               # App WPF (interfaz gráfica de Windows)
+    ├── Assets/app.ico             # Ícono de la app y del ejecutable
+    ├── Theme/                     # Diccionarios de recursos claro/oscuro + ThemeService
     ├── ViewModels/                # MVVM: un ViewModel independiente por pestaña/calculadora
-    └── Views/PatientPanelView.xaml  # Formulario de peso/edad + tarjetas de medicamentos
+    ├── Views/PatientPanelView.xaml   # Formulario de peso/edad + tarjetas (Principal/Hospital)
+    └── Views/NeonatalPanelView.xaml  # Formulario de peso/edad gestacional/edad postnatal (Neonatología)
 ```
 
 `PedMed.Core` no referencia nada de WPF ni de Windows: contiene únicamente el
@@ -58,6 +61,27 @@ El ejecutable resultante queda en
 y puede copiarse y ejecutarse en cualquier PC con Windows, sin instalar nada
 más ni requerir conexión a internet.
 
+## Descargar un ejecutable ya compilado (release)
+
+El workflow `.github/workflows/release-windows.yml` compila automáticamente
+este mismo `.exe` autónomo (sin instalador) y lo publica como adjunto de un
+GitHub Release. Se dispara:
+
+- Automáticamente al empujar una etiqueta de versión, por ejemplo:
+  ```bash
+  git tag v1.0.0
+  git push origin v1.0.0
+  ```
+- O manualmente desde la pestaña **Actions → Release Windows app → Run workflow**,
+  indicando una etiqueta (por ejemplo `v1.0.0-beta`); en ese caso solo se sube
+  el `.exe` como artefacto del workflow, sin crear un Release público.
+
+El ejecutable descargado (`PedMed-vX.Y.Z-win-x64.exe`) funciona de forma
+totalmente autónoma: no requiere instalar .NET ni ningún otro componente, y
+no necesita conexión a internet. Windows SmartScreen puede advertir que el
+editor no está verificado (el ejecutable no está firmado digitalmente); para
+ejecutarlo de todas formas: "Más información" → "Ejecutar de todas formas".
+
 ## Cómo validar los datos (en cualquier sistema operativo)
 
 ```bash
@@ -65,9 +89,11 @@ cd windows-app
 dotnet run --project PedMed.Core.Validator
 ```
 
-Verifica que los 169 medicamentos tengan IDs únicos, categorías válidas y que
-el motor de cálculo no arroje errores para una malla de pesos/edades — el
-mismo tipo de chequeo que `npm run validate` en la app web.
+Verifica que los 205 medicamentos tengan IDs únicos, categorías válidas y que
+el motor de cálculo no arroje errores para una malla de pesos/edades (y, para
+los medicamentos de la pestaña de Neonatología, una malla de peso/edad
+gestacional/edad postnatal) — el mismo tipo de chequeo que `npm run validate`
+en la app web.
 
 ## Cómo actualizar los datos de medicamentos
 
@@ -85,13 +111,23 @@ mismos medicamentos, dosis y advertencias, sin transcripción manual.
 
 ## Diseño de la interfaz
 
-La app replica la estructura de la web: dos pestañas, cada una con su propio
-formulario de peso/edad independiente (sin estado compartido entre ellas):
+La app replica la estructura de la web: tres pestañas, cada una con su propio
+formulario de paciente independiente (sin estado compartido entre ellas):
 
 - **Principal (Ambulatorio / Urgencias)**
 - **Hospitalización / UCI / Quirófano** (con aviso destacado adicional y
   cintas visuales de "solo uso hospitalario" / "medicamento controlado" en
   las tarjetas correspondientes)
+- **Neonatología (UCI neonatal)** (con aviso destacado adicional; su
+  formulario pide peso, edad gestacional al nacer en semanas y edad
+  postnatal en días, en vez de peso/edad en meses o años — la dosificación
+  neonatal depende de ambas edades a la vez)
+
+Un botón en la esquina superior derecha ("🌙 Modo oscuro" / "☀️ Modo claro")
+cambia el tema de toda la aplicación en tiempo real: colores de fondo, texto
+y tarjetas se ajustan para mantenerse legibles en ambos modos (los mismos
+colores de acento usados en la app web para cada nivel de seguridad se
+conservan; solo cambian los fondos).
 
 ## Estado de las pruebas
 
@@ -101,10 +137,12 @@ proyectos WPF fuera de Windows. Se verificó exhaustivamente:
 
 - Compilación limpia de las 3 proyectos (`PedMed.Core`, `PedMed.Core.Validator`,
   `PedMed.Windows`), incluida la compilación de XAML.
-- Los 169 medicamentos validados sin errores (`PedMed.Core.Validator`).
+- Los 205 medicamentos validados sin errores (`PedMed.Core.Validator`),
+  incluida una malla de peso/edad gestacional/edad postnatal para los 36
+  medicamentos de la pestaña de Neonatología.
 - Comparación cruzada manual de varios casos representativos (todos los
-  `DoseType`) contra los resultados exactos de `doseCalculator.js` en la app
-  web: coinciden.
+  `DoseType`, incluidos `NeonatalTier` y `NeonatalWeightTier`) contra los
+  resultados exactos de `doseCalculator.js` en la app web: coinciden.
 - Revisión manual de cada `{Binding ...}` en el XAML contra las propiedades
   expuestas por los ViewModels correspondientes.
 

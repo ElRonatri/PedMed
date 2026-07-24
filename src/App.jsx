@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import DoseCalculatorPanel from './components/DoseCalculatorPanel'
+import NeonatalCalculatorPanel from './components/NeonatalCalculatorPanel'
 import { MEDICATIONS } from './data/medications'
 
 const TABS = [
@@ -13,19 +14,29 @@ const TABS = [
     label: 'Hospitalización / UCI / Quirófano',
     venue: 'hospital',
   },
+  {
+    id: 'neonatologia',
+    label: 'Neonatología (UCI neonatal)',
+    venue: 'neonatal',
+  },
 ]
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('principal')
 
-  const principalMeds = useMemo(() => MEDICATIONS.filter((m) => m.venue !== 'hospital'), [])
+  const principalMeds = useMemo(
+    () => MEDICATIONS.filter((m) => m.venue !== 'hospital' && m.venue !== 'neonatal'),
+    []
+  )
   const hospitalMeds = useMemo(() => MEDICATIONS.filter((m) => m.venue === 'hospital'), [])
+  const neonatalMeds = useMemo(() => MEDICATIONS.filter((m) => m.venue === 'neonatal'), [])
 
   return (
     <div className="app">
       <header className="app-header">
         <h1>PedMed</h1>
         <p className="subtitle">Calculadora de dosis pediátrica por peso</p>
+        <p className="credit">Creado por Rodrigo Padilla</p>
       </header>
 
       <div className="disclaimer" role="alert">
@@ -81,6 +92,24 @@ export default function App() {
         <DoseCalculatorPanel medications={hospitalMeds} idPrefix="hospital" />
       </div>
 
+      <div className={activeTab === 'neonatologia' ? '' : 'tab-panel-hidden'}>
+        <div className="disclaimer disclaimer-hospital" role="alert">
+          <strong>Contenido de UCI neonatal:</strong> esta pestaña reúne fármacos dosificados
+          según la <strong>edad gestacional al nacer</strong> y la <strong>edad postnatal</strong>{' '}
+          del neonato (no por edad en meses/años como el resto de la app), de uso{' '}
+          <strong>exclusivamente hospitalario</strong> en cuidados intensivos neonatales. La
+          dosificación neonatal es especialmente sensible a errores: verifique siempre cada
+          cálculo contra el protocolo de neonatología/farmacia de su institución antes de
+          administrar cualquier medicamento.
+        </div>
+        <p className="tab-description">
+          Calculadora independiente para esta sección: requiere peso actual, edad gestacional al
+          nacer (semanas) y edad postnatal (días de vida). El peso/edad ingresados aquí no
+          afectan a las demás pestañas.
+        </p>
+        <NeonatalCalculatorPanel medications={neonatalMeds} idPrefix="neonatologia" />
+      </div>
+
       <footer className="app-footer">
         <p>
           Dosis basadas en el{' '}
@@ -102,6 +131,14 @@ export default function App() {
             rel="noopener noreferrer"
           >
             Anestesiología de Stony Brook Medicine
+          </a>{' '}
+          y, para la pestaña de Neonatología, la{' '}
+          <a
+            href="https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Guía-ABE — dosis de antimicrobianos en neonatos
           </a>
           . Los valores pueden variar según protocolo institucional, indicación específica y
           presentación comercial disponible.

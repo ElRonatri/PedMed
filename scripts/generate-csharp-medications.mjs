@@ -20,6 +20,8 @@ const DOSE_TYPE_MAP = {
   ageTier: 'AgeTier',
   weightTier: 'WeightTier',
   fixed: 'Fixed',
+  neonatalTier: 'NeonatalTier',
+  neonatalWeightTier: 'NeonatalWeightTier',
 }
 
 const LEVEL_MAP = {
@@ -83,6 +85,24 @@ function generateTiers(med) {
       .map((t) => `${indent(4)}new WeightTierEntry(${csDouble(t.maxKg)}, ${csString(t.doseText)}),`)
       .join('\n')
     return `${indent(3)}WeightTiers = new List<WeightTierEntry>\n${indent(3)}{\n${items}\n${indent(3)}},`
+  }
+  if (med.doseType === 'neonatalTier') {
+    const items = med.neonatalTiers
+      .map(
+        (t) =>
+          `${indent(4)}new NeonatalTierEntry(${csDouble(t.maxGestationalWeeks)}, ${csDouble(t.maxPostnatalDays)}, ${csDouble(t.perKgMin)}, ${csDouble(t.perKgMax)}, ${csString(t.frequencyText)}, ${csDouble(t.maxSingle)}),`
+      )
+      .join('\n')
+    return `${indent(3)}NeonatalTiers = new List<NeonatalTierEntry>\n${indent(3)}{\n${items}\n${indent(3)}},`
+  }
+  if (med.doseType === 'neonatalWeightTier') {
+    const items = med.neonatalWeightTiers
+      .map(
+        (t) =>
+          `${indent(4)}new NeonatalWeightTierEntry(${csDouble(t.maxWeightKg)}, ${csDouble(t.maxPostnatalDays)}, ${csDouble(t.perKgMin)}, ${csDouble(t.perKgMax)}, ${csString(t.frequencyText)}, ${csDouble(t.maxSingle)}),`
+      )
+      .join('\n')
+    return `${indent(3)}NeonatalWeightTiers = new List<NeonatalWeightTierEntry>\n${indent(3)}{\n${items}\n${indent(3)}},`
   }
   return null
 }

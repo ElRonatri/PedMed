@@ -38,9 +38,54 @@ if (invalidCategory.Count > 0)
 
 double[] testWeights = { 3, 15, 40, 70 };
 double[] testAges = { 1, 8, 30, 180 };
+double[] testNeonatalWeights = { 0.6, 1.2, 1.8, 2.5, 3.5 };
+double[] testGestationalWeeks = { 24, 28, 31, 34, 36, 38, 42, 46 };
+double[] testPostnatalDays = { 0, 3, 7, 10, 14, 21, 28, 35, 60 };
 
 foreach (var med in meds)
 {
+    if (med.IsNeonatalVenue)
+    {
+        foreach (var weightKg in testNeonatalWeights)
+        {
+            foreach (var gestationalWeeks in testGestationalWeeks)
+            {
+                foreach (var postnatalDays in testPostnatalDays)
+                {
+                    try
+                    {
+                        var dose = DoseCalculator.Compute(med, weightKg, null, gestationalWeeks, postnatalDays);
+                        if (dose.DoseMin is { } dMin && double.IsNaN(dMin))
+                        {
+                            Fail($"{med.Id} produced NaN DoseMin at weight={weightKg} gestationalWeeks={gestationalWeeks} postnatalDays={postnatalDays}");
+                        }
+                        if (dose.DoseMax is { } dMax && double.IsNaN(dMax))
+                        {
+                            Fail($"{med.Id} produced NaN DoseMax at weight={weightKg} gestationalWeeks={gestationalWeeks} postnatalDays={postnatalDays}");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Fail($"{med.Id} threw at weight={weightKg} gestationalWeeks={gestationalWeeks} postnatalDays={postnatalDays}: {e.Message}");
+                    }
+                }
+            }
+        }
+
+        try
+        {
+            DoseCalculator.Compute(med, 0, null, null, null);
+            DoseCalculator.Compute(med, 2.5, null, null, null);
+            DoseCalculator.Compute(med, 0, null, 30, 5);
+        }
+        catch (Exception e)
+        {
+            Fail($"{med.Id} threw with missing neonatal inputs: {e.Message}");
+        }
+
+        continue;
+    }
+
     foreach (var weightKg in testWeights)
     {
         foreach (var ageMonths in testAges)

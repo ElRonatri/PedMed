@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Media;
 using PedMed.Core.Models;
 using PedMed.Core.Services;
+using PedMed.Windows.Theme;
 
 namespace PedMed.Windows.ViewModels;
 
@@ -71,7 +72,7 @@ public sealed class MedicationCardViewModel : ViewModelBase
     };
 
     /// <summary>Recomputes everything this card displays for the panel's current weight (kg) and age (months).</summary>
-    public void Refresh(double? weightKg, double? ageMonths)
+    public void Refresh(double? weightKg, double? ageMonths, double? gestationalWeeks = null, double? postnatalDays = null)
     {
         var safety = DoseCalculator.GetAgeSafety(Med, ageMonths);
         SafetyLabel = safety.Level switch
@@ -83,12 +84,13 @@ public sealed class MedicationCardViewModel : ViewModelBase
         };
         SafetyText = safety.Text;
 
+        var dark = ThemeService.IsDarkMode;
         var (badgeBg, badgeFg, textColor, borderColor) = safety.Level switch
         {
-            SafetyLevel.Ok => (FromHex("#e6f6ec"), FromHex("#1f8a4c"), FromHex("#1f8a4c"), FromHex("#1f8a4c")),
-            SafetyLevel.Caution => (FromHex("#fdf1dc"), FromHex("#b8790a"), FromHex("#b8790a"), FromHex("#b8790a")),
-            SafetyLevel.Contraindicated => (FromHex("#fbe6e6"), FromHex("#c53030"), FromHex("#c53030"), FromHex("#c53030")),
-            _ => (FromHex("#eef0f2"), FromHex("#6b7280"), FromHex("#6b7280"), FromHex("#6b7280")),
+            SafetyLevel.Ok => (FromHex(dark ? "#123322" : "#e6f6ec"), FromHex("#1f8a4c"), FromHex("#1f8a4c"), FromHex("#1f8a4c")),
+            SafetyLevel.Caution => (FromHex(dark ? "#3a2c10" : "#fdf1dc"), FromHex("#b8790a"), FromHex("#b8790a"), FromHex("#b8790a")),
+            SafetyLevel.Contraindicated => (FromHex(dark ? "#3a1616" : "#fbe6e6"), FromHex("#c53030"), FromHex("#c53030"), FromHex("#c53030")),
+            _ => (FromHex(dark ? "#262f38" : "#eef0f2"), FromHex("#6b7280"), FromHex("#6b7280"), FromHex("#6b7280")),
         };
         SafetyBadgeBackground = badgeBg;
         SafetyBadgeForeground = badgeFg;
@@ -121,6 +123,49 @@ public sealed class MedicationCardViewModel : ViewModelBase
             Placeholder = null;
             DoseLines.Add(new DoseLineViewModel("Dosis", dose.DoseText ?? ""));
             HasDose = true;
+            return;
+        }
+
+        if (Med.DoseType == DoseType.NeonatalTier)
+        {
+            var dose = DoseCalculator.Compute(Med, weightKg ?? 0, ageMonths, gestationalWeeks, postnatalDays);
+            if (dose.NeedsInput)
+            {
+                Placeholder = "Ingrese la edad gestacional y la edad postnatal para ver la dosis correspondiente.";
+                HasDose = false;
+                return;
+            }
+            Placeholder = null;
+            HasDose = true;
+            DoseLines.Add(new DoseLineViewModel("Frecuencia según tramo", dose.FrequencyText ?? ""));
+            if (dose.NeedsWeight)
+            {
+                DoseLines.Add(new DoseLineViewModel("Dosis", $"Ingrese el peso actual para calcular la dosis en {dose.Unit}."));
+            }
+            else
+            {
+                DoseLines.Add(new DoseLineViewModel(
+                    "Dosis por administración",
+                    RangeOrSingle(dose.DoseMin, dose.DoseMax, dose.Unit ?? "") + CappedNote(dose.Capped)));
+            }
+            return;
+        }
+
+        if (Med.DoseType == DoseType.NeonatalWeightTier)
+        {
+            var dose = DoseCalculator.Compute(Med, weightKg ?? 0, ageMonths, gestationalWeeks, postnatalDays);
+            if (dose.NeedsInput)
+            {
+                Placeholder = "Ingrese el peso actual y la edad postnatal para ver la dosis correspondiente.";
+                HasDose = false;
+                return;
+            }
+            Placeholder = null;
+            HasDose = true;
+            DoseLines.Add(new DoseLineViewModel("Frecuencia según tramo", dose.FrequencyText ?? ""));
+            DoseLines.Add(new DoseLineViewModel(
+                "Dosis por administración",
+                RangeOrSingle(dose.DoseMin, dose.DoseMax, dose.Unit ?? "") + CappedNote(dose.Capped)));
             return;
         }
 

@@ -9,6 +9,8 @@ public enum DoseType
     AgeTier,
     WeightTier,
     Fixed,
+    NeonatalTier,
+    NeonatalWeightTier,
 }
 
 public enum SafetyLevel
@@ -32,6 +34,35 @@ public sealed record AgeTierEntry(double MaxMonths, string DoseText);
 
 /// <summary>Fixed dose text selected by weight band (used by DoseType.WeightTier).</summary>
 public sealed record WeightTierEntry(double MaxKg, string DoseText);
+
+/// <summary>
+/// A neonatal dosing tier selected by BOTH gestational age at birth (weeks) and
+/// postnatal age (days) at once (used by DoseType.NeonatalTier). Applies when the
+/// patient's gestational age is less than <see cref="MaxGestationalWeeks"/> AND the
+/// postnatal age is less than <see cref="MaxPostnatalDays"/> — tiers are evaluated in
+/// declaration order, first match wins (same "first match" rule as AgeTier/WeightTier,
+/// extended to two dimensions).
+/// </summary>
+public sealed record NeonatalTierEntry(
+    double MaxGestationalWeeks,
+    double MaxPostnatalDays,
+    double PerKgMin,
+    double PerKgMax,
+    string FrequencyText,
+    double? MaxSingle = null);
+
+/// <summary>
+/// Same as <see cref="NeonatalTierEntry"/>, but for source tables that tier by CURRENT
+/// weight (kg) instead of gestational age (used by DoseType.NeonatalWeightTier) — reuses
+/// the patient's already-entered weight both to select the tier and to compute the dose.
+/// </summary>
+public sealed record NeonatalWeightTierEntry(
+    double MaxWeightKg,
+    double MaxPostnatalDays,
+    double PerKgMin,
+    double PerKgMax,
+    string FrequencyText,
+    double? MaxSingle = null);
 
 /// <summary>
 /// A single medication entry. Mirrors the shape of src/data/medications.js in the
@@ -83,6 +114,10 @@ public sealed class Medication
     public IReadOnlyList<AgeTierEntry>? AgeTiers { get; init; }
     public IReadOnlyList<WeightTierEntry>? WeightTiers { get; init; }
 
+    // --- DoseType.NeonatalTier / DoseType.NeonatalWeightTier ---
+    public IReadOnlyList<NeonatalTierEntry>? NeonatalTiers { get; init; }
+    public IReadOnlyList<NeonatalWeightTierEntry>? NeonatalWeightTiers { get; init; }
+
     // --- DoseType.Fixed ---
     public string? DoseText { get; init; }
 
@@ -93,4 +128,5 @@ public sealed class Medication
     public IReadOnlyList<MedicationSource> Sources { get; init; } = Array.Empty<MedicationSource>();
 
     public bool IsHospitalVenue => Venue == "hospital";
+    public bool IsNeonatalVenue => Venue == "neonatal";
 }

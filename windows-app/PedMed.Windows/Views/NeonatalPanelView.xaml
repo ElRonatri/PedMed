@@ -1,11 +1,11 @@
-<UserControl x:Class="PedMed.Windows.Views.PatientPanelView"
+<UserControl x:Class="PedMed.Windows.Views.NeonatalPanelView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:PedMed.Windows.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=vm:PatientPanelViewModel}">
+             d:DataContext="{d:DesignInstance Type=vm:NeonatalPanelViewModel}">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -107,38 +107,50 @@
                 BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1" CornerRadius="12" Padding="20"
                 Margin="0,0,0,12">
             <StackPanel Orientation="Horizontal">
-                <StackPanel Margin="0,0,32,0" Width="220">
-                    <TextBlock Text="Peso del paciente (kg)" FontWeight="SemiBold"
+                <StackPanel Margin="0,0,32,0" Width="200">
+                    <TextBlock Text="Peso actual (kg)" FontWeight="SemiBold"
                                Foreground="{DynamicResource HeaderBrush}" Margin="0,0,0,6" />
                     <TextBox Text="{Binding WeightText, UpdateSourceTrigger=PropertyChanged}"
                              Background="{DynamicResource InputBackgroundBrush}"
                              Foreground="{DynamicResource TextPrimaryBrush}"
                              BorderBrush="{DynamicResource InputBorderBrush}" Padding="8" FontSize="14" />
                 </StackPanel>
-                <StackPanel Width="260">
-                    <TextBlock Text="Edad (opcional, recomendada)" FontWeight="SemiBold"
+                <StackPanel Margin="0,0,32,0" Width="260">
+                    <TextBlock Text="Edad gestacional al nacer (semanas)" FontWeight="SemiBold"
+                               Foreground="{DynamicResource HeaderBrush}" Margin="0,0,0,6" TextWrapping="Wrap" />
+                    <TextBox Text="{Binding GestationalWeeksText, UpdateSourceTrigger=PropertyChanged}"
+                             Background="{DynamicResource InputBackgroundBrush}"
+                             Foreground="{DynamicResource TextPrimaryBrush}"
+                             BorderBrush="{DynamicResource InputBorderBrush}" Padding="8" FontSize="14" />
+                    <TextBlock Text="Semanas completadas de gestación al momento del nacimiento."
+                               Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11" TextWrapping="Wrap"
+                               Margin="0,6,0,0" />
+                </StackPanel>
+                <StackPanel Width="280">
+                    <TextBlock Text="Edad postnatal (días de vida)" FontWeight="SemiBold"
                                Foreground="{DynamicResource HeaderBrush}" Margin="0,0,0,6" />
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding AgeText, UpdateSourceTrigger=PropertyChanged}"
-                                 Background="{DynamicResource InputBackgroundBrush}"
-                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                 BorderBrush="{DynamicResource InputBorderBrush}" Padding="8" FontSize="14"
-                                 Width="140" />
-                        <ComboBox ItemsSource="{Binding AgeUnits}" SelectedItem="{Binding AgeUnit}"
-                                  Background="{DynamicResource InputBackgroundBrush}"
-                                  Foreground="{DynamicResource TextPrimaryBrush}" Margin="8,0,0,0" Width="100"
-                                  Padding="6" VerticalContentAlignment="Center" />
-                    </StackPanel>
-                    <TextBlock Text="La edad permite validar la seguridad de cada medicamento. Sin edad, deberá verificar manualmente las restricciones."
+                    <TextBox Text="{Binding PostnatalDaysText, UpdateSourceTrigger=PropertyChanged}"
+                             Background="{DynamicResource InputBackgroundBrush}"
+                             Foreground="{DynamicResource TextPrimaryBrush}"
+                             BorderBrush="{DynamicResource InputBorderBrush}" Padding="8" FontSize="14" />
+                    <TextBlock Text="Días transcurridos desde el nacimiento. La dosificación neonatal depende de ambas edades a la vez."
                                Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11" TextWrapping="Wrap"
                                Margin="0,6,0,0" />
                 </StackPanel>
             </StackPanel>
         </Border>
 
-        <TextBlock DockPanel.Dock="Top" Text="{Binding FormError}" Foreground="{DynamicResource ErrorTextBrush}"
-                   FontWeight="Bold" Margin="0,0,0,8" TextWrapping="Wrap"
-                   Visibility="{Binding HasFormError, Converter={StaticResource BoolToVis}}" />
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock Text="{Binding WeightError}" Foreground="{DynamicResource ErrorTextBrush}"
+                       FontWeight="Bold" Margin="0,0,0,8" TextWrapping="Wrap"
+                       Visibility="{Binding HasWeightError, Converter={StaticResource BoolToVis}}" />
+            <TextBlock Text="{Binding GestationalError}" Foreground="{DynamicResource ErrorTextBrush}"
+                       FontWeight="Bold" Margin="0,0,0,8" TextWrapping="Wrap"
+                       Visibility="{Binding HasGestationalError, Converter={StaticResource BoolToVis}}" />
+            <TextBlock Text="{Binding PostnatalError}" Foreground="{DynamicResource ErrorTextBrush}"
+                       FontWeight="Bold" Margin="0,0,0,8" TextWrapping="Wrap"
+                       Visibility="{Binding HasPostnatalError, Converter={StaticResource BoolToVis}}" />
+        </StackPanel>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <ItemsControl ItemsSource="{Binding Categories}">

@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using PedMed.Core.Models;
+using PedMed.Windows.Theme;
 
 namespace PedMed.Windows.ViewModels;
 
@@ -62,6 +63,7 @@ public sealed class PatientPanelViewModel : ViewModelBase
             Categories.Add(new CategoryGroupViewModel(category, cardsInCategory));
         }
 
+        ThemeService.ThemeChanged += RecomputeAll;
         RecomputeAll();
     }
 

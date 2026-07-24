@@ -1,19 +1,19 @@
 import { computeDose, getAgeSafety } from '../utils/doseCalculator'
 import SafetyBadge from './SafetyBadge'
 
-const NO_WEIGHT_NEEDED_TYPES = ['ageTier', 'fixed']
+const NO_WEIGHT_NEEDED_TYPES = ['ageTier', 'fixed', 'neonatalTier', 'neonatalWeightTier']
 
 const RIBBON_TEXT = {
   hospital: 'Solo uso hospitalario — requiere vía IV/IM/IO, monitorización continua y personal capacitado',
   controlled: 'Medicamento controlado — requiere prescripción y supervisión médica estricta; riesgo de dependencia/depresión respiratoria',
 }
 
-export default function MedicationCard({ med, weightKg, ageMonths }) {
+export default function MedicationCard({ med, weightKg, ageMonths, gestationalWeeks, postnatalDays }) {
   const hasWeight = weightKg !== null && weightKg > 0
   const safety = getAgeSafety(med, ageMonths)
   const dose =
     hasWeight || NO_WEIGHT_NEEDED_TYPES.includes(med.doseType)
-      ? computeDose(med, weightKg, ageMonths)
+      ? computeDose(med, weightKg, ageMonths, gestationalWeeks, postnatalDays)
       : null
   const ribbonText = RIBBON_TEXT[med.setting]
 
@@ -169,6 +169,64 @@ export default function MedicationCard({ med, weightKg, ageMonths }) {
             <span className="dose-label">Dosis</span>
             <span className="dose-value">{dose.doseText}</span>
           </div>
+        </div>
+      )}
+
+      {dose && dose.kind === 'neonatalTier' && (
+        <div className="dose-block">
+          {dose.needsInput ? (
+            <p className="med-placeholder">
+              Ingrese la edad gestacional y la edad postnatal para ver la dosis correspondiente.
+            </p>
+          ) : (
+            <>
+              <div className="dose-row">
+                <span className="dose-label">Frecuencia según tramo</span>
+                <span className="dose-value">{dose.frequencyText}</span>
+              </div>
+              {dose.needsWeight ? (
+                <p className="med-placeholder">
+                  Ingrese el peso actual para calcular la dosis en {dose.unit}.
+                </p>
+              ) : (
+                <div className="dose-row">
+                  <span className="dose-label">Dosis por administración</span>
+                  <span className="dose-value">
+                    {dose.doseMin === dose.doseMax
+                      ? `${dose.doseMin} ${dose.unit}`
+                      : `${dose.doseMin} – ${dose.doseMax} ${dose.unit}`}
+                    {dose.capped && <em> (tope máximo aplicado)</em>}
+                  </span>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {dose && dose.kind === 'neonatalWeightTier' && (
+        <div className="dose-block">
+          {dose.needsInput ? (
+            <p className="med-placeholder">
+              Ingrese el peso actual y la edad postnatal para ver la dosis correspondiente.
+            </p>
+          ) : (
+            <>
+              <div className="dose-row">
+                <span className="dose-label">Frecuencia según tramo</span>
+                <span className="dose-value">{dose.frequencyText}</span>
+              </div>
+              <div className="dose-row">
+                <span className="dose-label">Dosis por administración</span>
+                <span className="dose-value">
+                  {dose.doseMin === dose.doseMax
+                    ? `${dose.doseMin} ${dose.unit}`
+                    : `${dose.doseMin} – ${dose.doseMax} ${dose.unit}`}
+                  {dose.capped && <em> (tope máximo aplicado)</em>}
+                </span>
+              </div>
+            </>
+          )}
         </div>
       )}
 

@@ -1,0 +1,78 @@
+name: Release Windows app
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Etiqueta de versión para el release (ej. v1.0.0). Requerido al disparar manualmente.'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Determine version tag
+        id: version
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate medication data
+        working-directory: windows-app
+        run: dotnet run --project PedMed.Core.Validator
+
+      - name: Publish self-contained win-x64 executable
+        working-directory: windows-app
+        run: >
+          dotnet publish PedMed.Windows/PedMed.Windows.csproj
+          -c Release
+          -r win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:EnableCompressionInSingleFile=true
+          -o publish
+
+      - name: Rename executable with version
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp "windows-app/publish/PedMed.Windows.exe" "dist/PedMed-${{ steps.version.outputs.tag }}-win-x64.exe"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PedMed-windows-${{ steps.version.outputs.tag }}
+          path: dist/*.exe
+
+      - name: Create GitHub Release and attach executable
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.exe
+          name: PedMed ${{ steps.version.outputs.tag }}
+          body: |
+            App de Windows de PedMed (C#/.NET 8, WPF), lista para usar sin instalador.
+
+            **Cómo usar:** descarga `PedMed-${{ steps.version.outputs.tag }}-win-x64.exe` y ejecútalo directamente — no requiere instalación ni conexión a internet. Windows puede mostrar una advertencia de SmartScreen por no estar firmado digitalmente; selecciona "Más información" → "Ejecutar de todas formas".
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

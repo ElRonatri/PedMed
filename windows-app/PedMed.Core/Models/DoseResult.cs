@@ -42,4 +42,12 @@ public sealed class DoseResult
 
     // AgeTier / WeightTier / Fixed
     public string? DoseText { get; init; }
+
+    // NeonatalTier / NeonatalWeightTier
+    public bool NeedsInput { get; init; }
+    public bool NeedsWeight { get; init; }
+    public double? DoseMin { get; init; }
+    public double? DoseMax { get; init; }
+    public bool Capped { get; init; }
+    public string? FrequencyText { get; init; }
 }

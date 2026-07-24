@@ -169,10 +169,95 @@ public static class DoseCalculator
     }
 
     /// <summary>
-    /// Computes the dose result for a medication given the patient's weight (kg) and
-    /// optional age (months). Age is only required for DoseType.AgeTier.
+    /// Selects the mg/kg (or other unit) dose and frequency according to the tier whose
+    /// gestational age at birth (weeks) and postnatal age (days) both exceed the patient's
+    /// values — both dimensions at once, since neonatal dosing depends on both. Tiers are
+    /// tried in declaration order and the first one whose upper bound in BOTH dimensions
+    /// exceeds the patient's values is used (same "first match" rule as AgeTier/WeightTier,
+    /// extended to 2D).
     /// </summary>
-    public static DoseResult Compute(Medication med, double weightKg, double? ageMonths = null)
+    private static DoseResult ComputeNeonatalTierDose(Medication med, double? weightKg, double? gestationalWeeks, double? postnatalDays)
+    {
+        if (gestationalWeeks is null || double.IsNaN(gestationalWeeks.Value) ||
+            postnatalDays is null || double.IsNaN(postnatalDays.Value))
+        {
+            return new DoseResult { Kind = DoseType.NeonatalTier, NeedsInput = true };
+        }
+
+        var tiers = med.NeonatalTiers!;
+        var tier = tiers.FirstOrDefault(t => gestationalWeeks.Value < t.MaxGestationalWeeks && postnatalDays.Value < t.MaxPostnatalDays)
+                   ?? tiers[^1];
+
+        var hasWeight = weightKg is > 0;
+        double? rawMin = hasWeight ? weightKg!.Value * tier.PerKgMin : null;
+        double? rawMax = hasWeight ? weightKg!.Value * tier.PerKgMax : null;
+        var doseMin = rawMin is { } rMin && tier.MaxSingle is { } msMin ? Math.Min(rMin, msMin) : rawMin;
+        var doseMax = rawMax is { } rMax && tier.MaxSingle is { } msMax ? Math.Min(rMax, msMax) : rawMax;
+        var capped = hasWeight && tier.MaxSingle is { } ms2 && rawMax > ms2;
+
+        return new DoseResult
+        {
+            Kind = DoseType.NeonatalTier,
+            NeedsInput = false,
+            NeedsWeight = !hasWeight,
+            DoseMin = doseMin is { } dMin ? Round(dMin, 2) : null,
+            DoseMax = doseMax is { } dMax ? Round(dMax, 2) : null,
+            Unit = med.Unit,
+            FrequencyText = tier.FrequencyText,
+            Capped = capped,
+        };
+    }
+
+    /// <summary>
+    /// Same as <see cref="ComputeNeonatalTierDose"/>, but for medications whose source
+    /// table tiers by CURRENT weight (not gestational age) — reuses the already-entered
+    /// weight both to select the tier and to compute the dose.
+    /// </summary>
+    private static DoseResult ComputeNeonatalWeightTierDose(Medication med, double? weightKg, double? postnatalDays)
+    {
+        var hasWeight = weightKg is > 0;
+        if (!hasWeight || postnatalDays is null || double.IsNaN(postnatalDays.Value))
+        {
+            return new DoseResult { Kind = DoseType.NeonatalWeightTier, NeedsInput = true, NeedsWeight = !hasWeight };
+        }
+
+        var tiers = med.NeonatalWeightTiers!;
+        var tier = tiers.FirstOrDefault(t => weightKg!.Value < t.MaxWeightKg && postnatalDays.Value < t.MaxPostnatalDays)
+                   ?? tiers[^1];
+
+        var rawMin = weightKg!.Value * tier.PerKgMin;
+        var rawMax = weightKg.Value * tier.PerKgMax;
+        var doseMin = tier.MaxSingle is { } msMin ? Math.Min(rawMin, msMin) : rawMin;
+        var doseMax = tier.MaxSingle is { } msMax ? Math.Min(rawMax, msMax) : rawMax;
+        var capped = tier.MaxSingle is { } ms2 && rawMax > ms2;
+
+        return new DoseResult
+        {
+            Kind = DoseType.NeonatalWeightTier,
+            NeedsInput = false,
+            NeedsWeight = false,
+            DoseMin = Round(doseMin, 2),
+            DoseMax = Round(doseMax, 2),
+            Unit = med.Unit,
+            FrequencyText = tier.FrequencyText,
+            Capped = capped,
+        };
+    }
+
+    /// <summary>
+    /// Computes the dose result for a medication given the patient's weight (kg) and
+    /// optional age (months). Age is only required for DoseType.AgeTier. Gestational
+    /// weeks and postnatal days are only required for DoseType.NeonatalTier /
+    /// DoseType.NeonatalWeightTier — pass weightKg as 0 (or any non-positive value) when
+    /// the weight has not been entered yet, mirroring the "no weight yet" sentinel already
+    /// used for AgeTier/Fixed by the view-model.
+    /// </summary>
+    public static DoseResult Compute(
+        Medication med,
+        double weightKg,
+        double? ageMonths = null,
+        double? gestationalWeeks = null,
+        double? postnatalDays = null)
     {
         return med.DoseType switch
         {
@@ -182,6 +267,8 @@ public static class DoseCalculator
             DoseType.AgeTier => ComputeAgeTierDose(med, ageMonths),
             DoseType.WeightTier => ComputeWeightTierDose(med, weightKg),
             DoseType.Fixed => ComputeFixedDose(med),
+            DoseType.NeonatalTier => ComputeNeonatalTierDose(med, weightKg > 0 ? weightKg : null, gestationalWeeks, postnatalDays),
+            DoseType.NeonatalWeightTier => ComputeNeonatalWeightTierDose(med, weightKg > 0 ? weightKg : null, postnatalDays),
             _ => ComputeStandardDose(med, weightKg),
         };
     }

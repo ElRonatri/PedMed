@@ -12,11 +12,15 @@
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <AssemblyName>PedMed.Windows</AssemblyName>
     <RootNamespace>PedMed.Windows</RootNamespace>
-    <ApplicationIcon></ApplicationIcon>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PedMed.Core\PedMed.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\app.ico" />
   </ItemGroup>
 
 </Project>

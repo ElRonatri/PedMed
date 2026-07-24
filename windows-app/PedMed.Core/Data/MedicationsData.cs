@@ -15,6 +15,8 @@ public static class MedicationsData
         "Antipirético / Analgésico",
         "Analgésico opioide",
         "Antibiótico",
+        "Antifúngico",
+        "Antiviral",
         "Antiemético",
         "Antihistamínico / Antipruriginoso",
         "Corticosteroide",
@@ -3505,6 +3507,842 @@ public static class MedicationsData
             Sources = new List<MedicationSource>
             {
                 new MedicationSource("Guía-ABE — Antibióticos: dosis en lactantes y niños (2019)", "https://www.guia-abe.es/files/pdf/antibioticos_dosificacion_lactantes_ninos_2019.pdf"),
+            },
+        },
+        new Medication
+        {
+            Id = "amikacina-neonatal",
+            Name = "Amikacina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 8d, 18d, 18d, "IM/IV cada 48 horas", null),
+                new NeonatalTierEntry(30d, 29d, 15d, 15d, "IM/IV cada 36 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 15d, 15d, "IM/IV cada 24 horas", null),
+                new NeonatalTierEntry(34d, 8d, 18d, 18d, "IM/IV cada 36 horas", null),
+                new NeonatalTierEntry(34d, double.PositiveInfinity, 15d, 15d, "IM/IV cada 24 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 15d, 15d, "IM/IV cada 24 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Aminoglucósido para infecciones neonatales graves por gramnegativos.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Ototoxicidad y alteración de la función renal; requiere monitorización de niveles séricos (pico/valle). Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "ampicilina-neonatal",
+            Name = "Ampicilina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 29d, 25d, 50d, "IM/IV (infundir en 15 min) cada 12 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 25d, 50d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(36d, 15d, 25d, 50d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(36d, double.PositiveInfinity, 25d, 50d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(44d, 8d, 25d, 50d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(44d, double.PositiveInfinity, 25d, 50d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 25d, 50d, "IM/IV cada 6 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Betalactámico de amplio uso empírico en sepsis neonatal.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Bacteriemia: 50–100 mg/kg/dosis (150–200 mg/kg/día). Meningitis: ≤7 días 100 mg/kg cada 8 h; >7 días 75 mg/kg cada 6 h. Reacciones de hipersensibilidad, alteraciones del SNC. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "aztreonam-neonatal",
+            Name = "Aztreonam (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 29d, 30d, 30d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 30d, 30d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(36d, 15d, 30d, 30d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(36d, double.PositiveInfinity, 30d, 30d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(44d, 8d, 30d, 30d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(44d, double.PositiveInfinity, 30d, 30d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 30d, 30d, "IM/IV cada 6 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Monobactámico para infecciones neonatales graves por gramnegativos, alternativa en alergia a betalactámicos.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Riesgo de hipoglucemia. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "cefazolina-neonatal",
+            Name = "Cefazolina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 29d, 25d, 25d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 30d, 30d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(36d, 15d, 30d, 30d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(36d, double.PositiveInfinity, 30d, 30d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(44d, 8d, 30d, 30d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(44d, double.PositiveInfinity, 30d, 30d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 30d, 30d, "IM/IV cada 6 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Cefalosporina de 1ª generación para infecciones neonatales por grampositivos.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "cefepima-neonatal",
+            Name = "Cefepima (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(double.PositiveInfinity, 29d, 30d, 30d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 50d, 50d, "IM/IV cada 12 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad postnatal",
+            Indication = "Cefalosporina de 4ª generación de amplio espectro para infecciones neonatales graves, incluida cobertura de Pseudomonas.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Meningitis/infecciones graves: 50 mg/kg cada 12 h. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "cefotaxima-neonatal",
+            Name = "Cefotaxima (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 29d, 50d, 50d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 50d, 50d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(36d, 15d, 50d, 50d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(36d, double.PositiveInfinity, 50d, 50d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(44d, 8d, 50d, 50d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(44d, double.PositiveInfinity, 50d, 50d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 50d, 50d, "IM/IV cada 6 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Cefalosporina de 3ª generación de amplio uso empírico en sepsis y meningitis neonatal.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Infección gonocócica diseminada: 25 mg/kg cada 12 h. Profilaxis gonocócica al nacer: 100 mg/kg dosis única. Alteraciones hematológicas y cardiovasculares. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "cefoxitina-neonatal",
+            Name = "Cefoxitina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 29d, 25d, 33d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 25d, 33d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(36d, 15d, 25d, 33d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(36d, double.PositiveInfinity, 25d, 33d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(44d, 8d, 25d, 33d, "IM/IV cada 12 horas", null),
+                new NeonatalTierEntry(44d, double.PositiveInfinity, 25d, 33d, "IM/IV cada 8 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 25d, 33d, "IM/IV cada 6 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Cefalosporina de 2ª generación con cobertura de anaerobios para infecciones neonatales.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "ceftazidima-neonatal",
+            Name = "Ceftazidima (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalWeightTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalWeightTiers = new List<NeonatalWeightTierEntry>
+            {
+                new NeonatalWeightTierEntry(1d, 15d, 50d, 50d, "IM/IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(1d, double.PositiveInfinity, 50d, 50d, "IM/IV cada 8–12 horas", null),
+                new NeonatalWeightTierEntry(2d, 8d, 50d, 50d, "IM/IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(2d, double.PositiveInfinity, 50d, 50d, "IM/IV cada 8–12 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, 8d, 50d, 50d, "IM/IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, double.PositiveInfinity, 50d, 50d, "IM/IV cada 8 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende del peso actual y la edad postnatal",
+            Indication = "Cefalosporina de 3ª generación con buena cobertura de Pseudomonas para infecciones neonatales graves.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Meningitis: <7 días 100–150 mg/kg cada 12 h; >7 días 150 mg/kg cada 8 h. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "ceftriaxona-neonatal",
+            Name = "Ceftriaxona (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 50d, 50d, "IM/IV cada 24 horas", null),
+            },
+            FrequencyText = "IM/IV cada 24 horas (sepsis/infección gonocócica diseminada)",
+            Indication = "Cefalosporina de 3ª generación de amplio espectro para sepsis neonatal.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Meningitis: carga 100 mg/kg, luego 80 mg/kg cada 24 h. Profilaxis/oftalmía gonocócica: 25–50 mg/kg dosis única (máx. 125 mg). ⚠️ Contraindicada/no recomendada en neonatos con ictericia o hiperbilirrubinemia (riesgo de kernicterus al desplazar la bilirrubina de la albúmina), y con precaución si se usa calcio IV concomitante. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "ciprofloxacino-neonatal",
+            Name = "Ciprofloxacino (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(34d, double.PositiveInfinity, 7.5d, 7.5d, "IV cada 12 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 12.5d, 12.5d, "IV cada 12 horas", null),
+            },
+            FrequencyText = "Ver dosis: la dosis depende de la edad gestacional",
+            Indication = "Fluoroquinolona de reserva para infecciones neonatales graves sin otra alternativa.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Uso off-label, con estudios neonatales limitados. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "clindamicina-neonatal",
+            Name = "Clindamicina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalWeightTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalWeightTiers = new List<NeonatalWeightTierEntry>
+            {
+                new NeonatalWeightTierEntry(2.001d, 29d, 5d, 5d, "IM/IV/oral cada 8 horas", null),
+                new NeonatalWeightTierEntry(2.001d, 61d, 10d, 10d, "IM/IV/oral cada 8 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, 8d, 7d, 7d, "IM/IV/oral cada 8 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, 29d, 9d, 9d, "IM/IV/oral cada 8 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, double.PositiveInfinity, 10d, 10d, "IM/IV/oral cada 8 horas", null),
+            },
+            FrequencyText = "Ver dosis: la dosis depende del peso actual y la edad postnatal",
+            Indication = "Lincosamida para infecciones neonatales por anaerobios y grampositivos, alternativa en alergia a penicilinas.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Tabla de referencia hasta 60 días de vida. Alteraciones del SNC y riesgo de colitis pseudomembranosa. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "cloxacilina-neonatal",
+            Name = "Cloxacilina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 29d, 25d, 37.5d, "IM/IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 25d, 37.5d, "IM/IV/oral cada 8 horas", null),
+                new NeonatalTierEntry(36d, 15d, 25d, 37.5d, "IM/IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(36d, double.PositiveInfinity, 25d, 37.5d, "IM/IV/oral cada 8 horas", null),
+                new NeonatalTierEntry(44d, 8d, 25d, 37.5d, "IM/IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(44d, double.PositiveInfinity, 25d, 37.5d, "IM/IV/oral cada 8 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 25d, 37.5d, "IM/IV/oral cada 6 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Penicilina antiestafilocócica para infecciones neonatales por S. aureus meticilina-sensible.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Riesgo de candidiasis oral. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "eritromicina-neonatal",
+            Name = "Eritromicina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalWeightTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalWeightTiers = new List<NeonatalWeightTierEntry>
+            {
+                new NeonatalWeightTierEntry(1d, 15d, 10d, 10d, "IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(1d, double.PositiveInfinity, 10d, 10d, "IV cada 8 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, 8d, 10d, 10d, "IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, double.PositiveInfinity, 10d, 10d, "IV cada 8 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende del peso actual y la edad postnatal",
+            Indication = "Macrólido para conjuntivitis/neumonía por Chlamydia, tosferina y como procinético neonatal.",
+            AgeFlags = new List<AgeFlag>
+            {
+                new AgeFlag(0.5d, SafetyLevel.Caution, "Riesgo de estenosis hipertrófica de píloro si se usa en menores de 2 semanas de edad."),
+            },
+            GeneralWarning = "Conjuntivitis/neumonía por Chlamydia (oral): 50 mg/kg/día cada 6 h, 14 días. Tosferina: 10 mg/kg cada 6 h, 14 días. Procinético (>14 días): 1.5–12.5 mg/kg cada 6 h. Profilaxis de oftalmía neonatal: pomada al 0.5%, dosis única. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "imipenem-neonatal",
+            Name = "Imipenem-cilastatina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalWeightTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalWeightTiers = new List<NeonatalWeightTierEntry>
+            {
+                new NeonatalWeightTierEntry(1d, 14d, 20d, 20d, "IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(1d, double.PositiveInfinity, 25d, 25d, "IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(2d, 8d, 20d, 20d, "IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(2d, double.PositiveInfinity, 25d, 25d, "IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, 8d, 25d, 25d, "IV cada 12 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, double.PositiveInfinity, 25d, 25d, "IV cada 8 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende del peso actual y la edad postnatal",
+            Indication = "Carbapenémico de amplio espectro para infecciones neonatales graves por gramnegativos multirresistentes.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Riesgo de convulsiones, mayor que con meropenem. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "linezolid-neonatal",
+            Name = "Linezolid (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(37d, 8d, 10d, 10d, "IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 10d, 10d, "IV/oral cada 8 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la prematuridad y la edad postnatal",
+            Indication = "Oxazolidinona de reserva para infecciones neonatales graves por grampositivos resistentes (SARM, enterococo resistente a vancomicina).",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Uso restringido a infecciones sin afectación meníngea. El tramo \"pretérmino\" se aproxima aquí como <37 semanas de edad gestacional; la fuente original no especifica el corte exacto en semanas — verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "meropenem-neonatal",
+            Name = "Meropenem (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(32d, 15d, 20d, 20d, "IV cada 12 horas", null),
+                new NeonatalTierEntry(32d, double.PositiveInfinity, 20d, 20d, "IV cada 8 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, 8d, 20d, 20d, "IV cada 12 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 20d, 20d, "IV cada 8 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Carbapenémico de amplio espectro para sepsis neonatal grave por gramnegativos.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Meningitis o cobertura de Pseudomonas: 40 mg/kg/dosis cada 8 h. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "metronidazol-neonatal",
+            Name = "Metronidazol (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(26d, double.PositiveInfinity, 7.5d, 7.5d, "IV/oral cada 24 horas (mantenimiento)", null),
+                new NeonatalTierEntry(28d, double.PositiveInfinity, 10d, 10d, "IV/oral cada 24 horas (mantenimiento)", null),
+                new NeonatalTierEntry(34d, double.PositiveInfinity, 7.5d, 7.5d, "IV/oral cada 12 horas (mantenimiento)", null),
+                new NeonatalTierEntry(45d, double.PositiveInfinity, 10d, 10d, "IV/oral cada 12 horas (mantenimiento)", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 10d, 10d, "IV/oral cada 8 horas (mantenimiento)", null),
+            },
+            FrequencyText = "Ver dosis: la dosis de mantenimiento depende de la edad gestacional",
+            Indication = "Nitroimidazol para infecciones neonatales por anaerobios y profilaxis quirúrgica.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Dosis de carga inicial: 15 mg/kg (dosis única) antes de iniciar el mantenimiento indicado. Profilaxis quirúrgica: <1200 g 7.5 mg/kg; ≥1200 g 15 mg/kg, dosis única 30–60 min antes de la cirugía. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "mupirocina-neonatal",
+            Name = "Mupirocina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.Fixed,
+            Venue = "neonatal",
+            DoseText = "Tópico: infecciones cutáneas 3 veces al día; descolonización nasal 2 veces al día durante 5–7 días.",
+            FrequencyText = "Tópico",
+            Indication = "Antibiótico tópico para infecciones cutáneas localizadas y descolonización nasal de S. aureus.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Uso exclusivamente tópico, no ingerir ni aplicar en mucosas extensas. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "penicilina-g-neonatal",
+            Name = "Penicilina G sódica (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "UI",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 29d, 25000d, 50000d, "IV/IM cada 12 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 25000d, 50000d, "IV/IM cada 8 horas", null),
+                new NeonatalTierEntry(37d, 15d, 25000d, 50000d, "IV/IM cada 12 horas", null),
+                new NeonatalTierEntry(37d, double.PositiveInfinity, 25000d, 50000d, "IV/IM cada 8 horas", null),
+                new NeonatalTierEntry(45d, 8d, 25000d, 50000d, "IV/IM cada 12 horas", null),
+                new NeonatalTierEntry(45d, double.PositiveInfinity, 25000d, 50000d, "IV/IM cada 8 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 25000d, 50000d, "IV/IM cada 6 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal (dosis de bacteriemia)",
+            Indication = "Penicilina de amplio uso en sepsis neonatal, sífilis congénita y profilaxis/tratamiento de infección por Streptococcus del grupo B.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Meningitis: 75 000–100 000 UI/kg/dosis. Bacteriemia por SGB: 200 000 UI/kg/día. Meningitis por SGB: ≤7 días 250 000–450 000 UI/kg/día cada 8 h; >7 días 450 000–500 000 UI/kg/día cada 6 h. Sífilis congénita (IV cristalina): 50 000 UI/kg cada 12 h (primeros 7 días) y luego cada 8 h, 10 días totales. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "piperacilina-tazobactam-neonatal",
+            Name = "Piperacilina-tazobactam (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 29d, 50d, 100d, "IV cada 12 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 50d, 100d, "IV cada 8 horas", null),
+                new NeonatalTierEntry(37d, 15d, 50d, 100d, "IV cada 12 horas", null),
+                new NeonatalTierEntry(37d, double.PositiveInfinity, 50d, 100d, "IV cada 8 horas", null),
+                new NeonatalTierEntry(45d, 8d, 50d, 100d, "IV cada 12 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 50d, 100d, "IV cada 8 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Betalactámico + inhibidor de betalactamasas de amplio espectro para infecciones neonatales graves.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "rifampicina-neonatal",
+            Name = "Rifampicina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.WeightDose,
+            Venue = "neonatal",
+            Unit = "mg",
+            PerKgMin = 10d,
+            PerKgMax = 20d,
+            FrequencyText = "Oral cada 24 horas",
+            Indication = "Rifamicina usada como coadyuvante en infecciones neonatales graves y en quimioprofilaxis de contactos.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Alternativa IV: 5–10 mg/kg/dosis cada 12 h (infusión 30 min). Profilaxis meningocócica: 5 mg/kg cada 12 h vía oral, 2 días. Profilaxis de H. influenzae tipo B: 10 mg/kg cada 24 h vía oral, 4 días. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "teicoplanina-neonatal",
+            Name = "Teicoplanina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.WeightDose,
+            Venue = "neonatal",
+            Unit = "mg",
+            PerKgMin = 8d,
+            PerKgMax = 8d,
+            FrequencyText = "IV cada 24 horas (mantenimiento; dosis de carga inicial de 16 mg/kg el primer día)",
+            Indication = "Glucopéptido para infecciones neonatales graves por grampositivos, alternativa a la vancomicina.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "tobramicina-neonatal",
+            Name = "Tobramicina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 8d, 5d, 5d, "IV/IM cada 48 horas", null),
+                new NeonatalTierEntry(30d, 29d, 4d, 4d, "IV/IM cada 36 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 4d, 4d, "IV/IM cada 24 horas", null),
+                new NeonatalTierEntry(35d, 8d, 4.5d, 4.5d, "IV/IM cada 36 horas", null),
+                new NeonatalTierEntry(35d, double.PositiveInfinity, 4d, 4d, "IV/IM cada 24 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 4d, 4d, "IV/IM cada 24 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Aminoglucósido para infecciones neonatales graves por gramnegativos, incluida Pseudomonas.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Requiere monitorización de niveles séricos por riesgo de nefro/ototoxicidad. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "vancomicina-neonatal",
+            Name = "Vancomicina (neonatal)",
+            Category = "Antibiótico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 15d, 10d, 10d, "IV cada 18 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 10d, 10d, "IV cada 12 horas", null),
+                new NeonatalTierEntry(37d, 15d, 10d, 10d, "IV cada 12 horas", null),
+                new NeonatalTierEntry(37d, double.PositiveInfinity, 10d, 10d, "IV cada 8 horas", null),
+                new NeonatalTierEntry(45d, 8d, 10d, 10d, "IV cada 12 horas", null),
+                new NeonatalTierEntry(45d, double.PositiveInfinity, 10d, 10d, "IV cada 8 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 10d, 10d, "IV cada 6 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal (dosis de bacteriemia)",
+            Indication = "Glucopéptido de primera línea para infecciones neonatales graves por grampositivos resistentes, incluido SARM.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Meningitis: 15 mg/kg/dosis (en vez de 10 mg/kg). Infusión en 60 min. Requiere monitorización de niveles séricos. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "anfotericina-b-neonatal",
+            Name = "Anfotericina B desoxicolato (neonatal)",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Venue = "neonatal",
+            Unit = "mg",
+            PerKgMin = 1d,
+            PerKgMax = 1.5d,
+            FrequencyText = "IV cada 24 horas (infusión 2–6 horas)",
+            Indication = "Antifúngico poliénico de amplio espectro para candidiasis invasiva neonatal grave.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Nefrotoxicidad, alteraciones electrolíticas (hipopotasemia). Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "anfotericina-b-liposomal-neonatal",
+            Name = "Anfotericina B liposomal (neonatal)",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Venue = "neonatal",
+            Unit = "mg",
+            PerKgMin = 3d,
+            PerKgMax = 5d,
+            FrequencyText = "IV cada 24 horas (infusión 2 horas)",
+            Indication = "Formulación liposomal de anfotericina B, menor nefrotoxicidad, para candidiasis invasiva neonatal grave.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "caspofungina-neonatal",
+            Name = "Caspofungina (neonatal)",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Venue = "neonatal",
+            Unit = "mg",
+            PerKgMin = 1d,
+            PerKgMax = 2d,
+            FrequencyText = "IV cada 24 horas",
+            Indication = "Equinocandina de reserva para candidiasis invasiva neonatal refractaria o resistente a azoles.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Alternativa por superficie corporal: 25 mg/m² cada 24 h. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "fluconazol-neonatal",
+            Name = "Fluconazol (neonatal)",
+            Category = "Antifúngico",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(double.PositiveInfinity, 8d, 12d, 12d, "IV/oral cada 48 horas (mantenimiento)", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 12d, 12d, "IV/oral cada 24 horas (mantenimiento)", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia de mantenimiento depende de la edad postnatal (candidiasis sistémica)",
+            Indication = "Antifúngico azólico de primera línea para candidiasis sistémica neonatal.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Dosis de carga inicial: 25 mg/kg (dosis única). Tratamiento total 21 días. Meningitis criptocócica: 12 mg/kg/día durante 10–12 semanas tras LCR estéril. Candidiasis oral: carga 12 mg/kg, luego 3 mg/kg/día, 7–14 días (14–21 días si esofágica). Profilaxis en prematuros de muy bajo peso (<30 sem): 3 mg/kg 2 veces/semana o cada 24–72 h según edad postnatal; 30–40 semanas: 6 mg/kg cada 48 h — ver protocolo institucional para el esquema completo. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "flucitosina-neonatal",
+            Name = "Flucitosina (neonatal)",
+            Category = "Antifúngico",
+            DoseType = DoseType.NeonatalWeightTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalWeightTiers = new List<NeonatalWeightTierEntry>
+            {
+                new NeonatalWeightTierEntry(1d, 15d, 75d, 75d, "Oral cada 8 horas", null),
+                new NeonatalWeightTierEntry(1d, double.PositiveInfinity, 75d, 75d, "Oral cada 6 horas", null),
+                new NeonatalWeightTierEntry(2d, 8d, 75d, 75d, "Oral cada 8 horas", null),
+                new NeonatalWeightTierEntry(2d, double.PositiveInfinity, 75d, 75d, "Oral cada 6 horas", null),
+                new NeonatalWeightTierEntry(double.PositiveInfinity, double.PositiveInfinity, 50d, 50d, "Oral cada 6 horas", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende del peso actual y la edad postnatal",
+            Indication = "Antifúngico usado en combinación con anfotericina B para candidiasis invasiva grave o meningitis por Candida.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Meningitis por Candida (combinado con anfotericina B, 6 semanas): 100 mg/kg/día cada 6–8 h. Tramo >2 kg válido hasta 60 días de vida. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "micafungina-neonatal",
+            Name = "Micafungina (neonatal)",
+            Category = "Antifúngico",
+            DoseType = DoseType.WeightDose,
+            Venue = "neonatal",
+            Unit = "mg",
+            PerKgMin = 2d,
+            PerKgMax = 4d,
+            FrequencyText = "IV cada 24 horas",
+            Indication = "Equinocandina para candidiasis invasiva neonatal, alternativa a caspofungina.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "<27 semanas de edad gestacional, <15 días de vida, o meningitis: usar 4 mg/kg/día. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "aciclovir-neonatal",
+            Name = "Aciclovir (neonatal)",
+            Category = "Antiviral",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(34d, 15d, 20d, 20d, "IV cada 12 horas (infusión 60 min)", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 20d, 20d, "IV cada 8 horas (infusión 60 min)", null),
+            },
+            FrequencyText = "Ver dosis: la frecuencia depende de la edad gestacional y postnatal",
+            Indication = "Antiviral de primera línea para infección neonatal por virus herpes simple (mucocutánea, diseminada o del SNC).",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Duración: 14 días (mucocutánea); 21 días (diseminada o con afectación del SNC). Seguimiento oral posterior: 300 mg/m²/dosis (hasta 6 meses tras el curso IV). Nefrotoxicidad y neutropenia. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "ganciclovir-neonatal",
+            Name = "Ganciclovir (neonatal)",
+            Category = "Antiviral",
+            DoseType = DoseType.WeightDose,
+            Venue = "neonatal",
+            Unit = "mg",
+            PerKgMin = 6d,
+            PerKgMax = 6d,
+            FrequencyText = "IV cada 12 horas (infusión mínima de 1 hora); tratamiento mínimo de 6 semanas",
+            Indication = "Antiviral para infección congénita grave por citomegalovirus (CMV).",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Mantenimiento posterior por vía oral (como valganciclovir): 30–40 mg/kg/dosis cada 8 h. Mielosupresión (neutropenia) y riesgo teórico de toxicidad reproductiva a largo plazo. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "lamivudina-neonatal",
+            Name = "Lamivudina (neonatal)",
+            Category = "Antiviral",
+            DoseType = DoseType.WeightDose,
+            Venue = "neonatal",
+            Unit = "mg",
+            PerKgMin = 2d,
+            PerKgMax = 2d,
+            FrequencyText = "Oral cada 12 horas, iniciando en las primeras 12 horas de vida, durante 4 semanas",
+            Indication = "Antirretroviral (ITIAN) para profilaxis/tratamiento de la transmisión vertical de VIH.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "No están establecidas las dosis en prematuros. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "nevirapina-neonatal",
+            Name = "Nevirapina (neonatal)",
+            Category = "Antiviral",
+            DoseType = DoseType.Fixed,
+            Venue = "neonatal",
+            DoseText = "Esquema de 14 días (≥35 sem): 2 mg/kg cada 24 h (semana 1), luego 4 mg/kg cada 24 h (semana 2); si la madre recibió nevirapina ≥3 días antes del parto: 4 mg/kg cada 24 h desde las 48 h de vida. <35 semanas: dosis única de 2 mg/kg (si la madre no fue tratada 2–3 h antes del parto). Esquema alternativo de 3 dosis: >2 kg 12 mg/dosis; 1.5–2 kg 8 mg/dosis (a las 0, 48 y 96 horas de vida).",
+            FrequencyText = "Ver esquema según edad gestacional y tratamiento materno",
+            Indication = "Antirretroviral (ITINN) para profilaxis de la transmisión vertical de VIH en neonatos de alto riesgo.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Datos limitados sobre toxicidad en neonatos. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "valganciclovir-neonatal",
+            Name = "Valganciclovir (neonatal)",
+            Category = "Antiviral",
+            DoseType = DoseType.WeightDose,
+            Venue = "neonatal",
+            Unit = "mg",
+            PerKgMin = 16d,
+            PerKgMax = 16d,
+            FrequencyText = "Oral cada 12 horas (tratamiento mínimo de 6 semanas)",
+            Indication = "Antiviral oral (profármaco de ganciclovir) para infección congénita por citomegalovirus (CMV).",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Mielosupresión (neutropenia). Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
+            },
+        },
+        new Medication
+        {
+            Id = "zidovudina-neonatal",
+            Name = "Zidovudina (neonatal)",
+            Category = "Antiviral",
+            DoseType = DoseType.NeonatalTier,
+            Venue = "neonatal",
+            Unit = "mg",
+            NeonatalTiers = new List<NeonatalTierEntry>
+            {
+                new NeonatalTierEntry(30d, 28d, 2d, 2d, "IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(30d, 56d, 3d, 3d, "IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(30d, double.PositiveInfinity, 12d, 12d, "IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(35d, 14d, 2d, 2d, "IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(35d, 42d, 3d, 3d, "IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(35d, double.PositiveInfinity, 12d, 12d, "IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, 28d, 4d, 4d, "IV/oral cada 12 horas", null),
+                new NeonatalTierEntry(double.PositiveInfinity, double.PositiveInfinity, 12d, 12d, "IV/oral cada 12 horas", null),
+            },
+            FrequencyText = "Ver dosis: la dosis depende de la edad gestacional y la edad postnatal (en días)",
+            Indication = "Antirretroviral (ITIAN) para profilaxis de la transmisión vertical de VIH en neonatos de alto riesgo.",
+            AgeFlags = Array.Empty<AgeFlag>(),
+            GeneralWarning = "Nota: los tramos de edad postnatal de este fármaco se expresan aquí en días equivalentes a las semanas postnatales de la fuente original. Iniciar entre las 4–12 horas de vida. Duración: 6 semanas si <35 semanas de edad gestacional; 4–6 semanas si ≥35 semanas con tratamiento materno adecuado y supresión viral confirmada. Verificar siempre contra el protocolo de neonatología/farmacia antes de administrar.",
+            Sources = new List<MedicationSource>
+            {
+                new MedicationSource("Guía-ABE — Generalidades de antimicrobianos: dosis en neonatos (2021)", "https://www.guia-abe.es/generalidades-antimicrobianos-dosis-en-neonatos"),
             },
         },
     };
