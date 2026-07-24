@@ -129,6 +129,12 @@ y tarjetas se ajustan para mantenerse legibles en ambos modos (los mismos
 colores de acento usados en la app web para cada nivel de seguridad se
 conservan; solo cambian los fondos).
 
+Cada pestaña incluye además un buscador de medicamentos por nombre (misma
+lógica que `MedicationSearchBox.jsx` en la app web, portada a
+`Utils/MedicationSearch.cs`): al escribir se despliega una lista de
+sugerencias seleccionables y las tarjetas que no coinciden se ocultan en
+tiempo real; al borrar el texto vuelven a mostrarse todas.
+
 ## Estado de las pruebas
 
 Este proyecto se desarrolló y compiló en un entorno Linux sin acceso a

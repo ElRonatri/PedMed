@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
 import NeonatalPatientForm from './NeonatalPatientForm'
 import MedicationCard from './MedicationCard'
+import MedicationSearchBox from './MedicationSearchBox'
 import { CATEGORIES } from '../data/medications'
+import { filterMedicationsByQuery } from '../utils/searchMedications'
 
 // Días promedio por mes, usados solo para derivar una edad en meses a partir
 // de la edad postnatal (días) y así reutilizar getAgeSafety/ageFlags, que
@@ -12,6 +14,7 @@ export default function NeonatalCalculatorPanel({ medications, idPrefix }) {
   const [weight, setWeight] = useState('')
   const [gestationalWeeksInput, setGestationalWeeksInput] = useState('')
   const [postnatalDaysInput, setPostnatalDaysInput] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
 
   const weightKg = useMemo(() => {
     const n = parseFloat(weight)
@@ -40,6 +43,11 @@ export default function NeonatalCalculatorPanel({ medications, idPrefix }) {
   const postnatalIsInvalid =
     postnatalDaysInput !== '' && (postnatalDays === null || postnatalDays < 0)
 
+  const visibleMedications = useMemo(
+    () => filterMedicationsByQuery(medications, searchQuery),
+    [medications, searchQuery]
+  )
+
   return (
     <div>
       <NeonatalPatientForm
@@ -62,9 +70,16 @@ export default function NeonatalCalculatorPanel({ medications, idPrefix }) {
         <p className="form-error">Ingrese una edad postnatal válida en días (0 o mayor).</p>
       )}
 
+      <MedicationSearchBox
+        idPrefix={idPrefix}
+        query={searchQuery}
+        onQueryChange={setSearchQuery}
+        matches={visibleMedications}
+      />
+
       <main>
         {CATEGORIES.map((category) => {
-          const medsInCategory = medications.filter((m) => m.category === category)
+          const medsInCategory = visibleMedications.filter((m) => m.category === category)
           if (medsInCategory.length === 0) return null
           return (
             <section key={category} className="category-section">
@@ -74,6 +89,7 @@ export default function NeonatalCalculatorPanel({ medications, idPrefix }) {
                   <MedicationCard
                     key={med.id}
                     med={med}
+                    idPrefix={idPrefix}
                     weightKg={!weightIsInvalid ? weightKg : null}
                     ageMonths={ageMonths}
                     gestationalWeeks={!gestationalIsInvalid ? gestationalWeeks : null}

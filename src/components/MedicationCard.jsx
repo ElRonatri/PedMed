@@ -8,7 +8,7 @@ const RIBBON_TEXT = {
   controlled: 'Medicamento controlado — requiere prescripción y supervisión médica estricta; riesgo de dependencia/depresión respiratoria',
 }
 
-export default function MedicationCard({ med, weightKg, ageMonths, gestationalWeeks, postnatalDays }) {
+export default function MedicationCard({ med, weightKg, ageMonths, gestationalWeeks, postnatalDays, idPrefix }) {
   const hasWeight = weightKg !== null && weightKg > 0
   const safety = getAgeSafety(med, ageMonths)
   const dose =
@@ -18,7 +18,7 @@ export default function MedicationCard({ med, weightKg, ageMonths, gestationalWe
   const ribbonText = RIBBON_TEXT[med.setting]
 
   return (
-    <article className={`med-card safety-border-${safety.level}`}>
+    <article id={idPrefix ? `${idPrefix}-med-${med.id}` : undefined} className={`med-card safety-border-${safety.level}`}>
       {ribbonText && <div className={`setting-ribbon setting-ribbon-${med.setting}`}>{ribbonText}</div>}
 
       <header className="med-card-header">
