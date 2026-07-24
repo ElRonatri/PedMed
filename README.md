@@ -12,6 +12,12 @@ restricción, precaución o contraindicado) para cada medicamento.
 > médico o farmacéutico. Verifique siempre las dosis antes de administrar cualquier
 > medicamento a un paciente pediátrico.
 
+> 🖥️ **¿Buscas la versión de Windows sin conexión?** Ver
+> [`windows-app/`](windows-app/README.md) — una app nativa en C#/WPF que
+> funciona 100% offline, con exactamente los mismos medicamentos y cálculos
+> que esta app web (los datos se generan automáticamente desde
+> `src/data/medications.js`, sin transcripción manual).
+
 ## Dos calculadoras independientes
 
 La aplicación está dividida en dos pestañas, cada una con su **propio** formulario de peso/edad

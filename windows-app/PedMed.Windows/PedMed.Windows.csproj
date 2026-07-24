@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <!-- Permite compilar (no ejecutar) este proyecto de Windows en un SDK de
+         Linux/macOS, por ejemplo en un pipeline de CI. Ejecutar la app en sí
+         requiere Windows. -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <AssemblyName>PedMed.Windows</AssemblyName>
+    <RootNamespace>PedMed.Windows</RootNamespace>
+    <ApplicationIcon></ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PedMed.Core\PedMed.Core.csproj" />
+  </ItemGroup>
+
+</Project>
