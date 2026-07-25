@@ -35,7 +35,9 @@ export default function MedicationCard({ med, weightKg, ageMonths, gestationalWe
       {hasWeight && dose && dose.kind === 'standard' && (
         <div className="dose-block">
           <div className="dose-row">
-            <span className="dose-label">Dosis por administración</span>
+            <span className="dose-label">
+              Dosis por administración <span className="dose-formula">({dose.formula})</span>
+            </span>
             <span className="dose-value">
               {dose.singleMin === dose.singleMax
                 ? `${dose.singleMin} mg`
@@ -70,7 +72,9 @@ export default function MedicationCard({ med, weightKg, ageMonths, gestationalWe
       {hasWeight && dose && dose.kind === 'azithromycin' && (
         <div className="dose-block">
           <div className="dose-row">
-            <span className="dose-label">Día 1 (dosis de carga)</span>
+            <span className="dose-label">
+              Día 1 (dosis de carga) <span className="dose-formula">({dose.dayOneFormula})</span>
+            </span>
             <span className="dose-value">
               {dose.dayOne} mg
               {med.concentrationMgPerMl && ` (${dose.volumeDayOneMl} mL)`}
@@ -78,7 +82,9 @@ export default function MedicationCard({ med, weightKg, ageMonths, gestationalWe
             </span>
           </div>
           <div className="dose-row">
-            <span className="dose-label">Días 2–5 (mantenimiento)</span>
+            <span className="dose-label">
+              Días 2–5 (mantenimiento) <span className="dose-formula">({dose.maintenanceFormula})</span>
+            </span>
             <span className="dose-value">
               {dose.maintenance} mg
               {med.concentrationMgPerMl && ` (${dose.volumeMaintenanceMl} mL)`}
@@ -95,7 +101,9 @@ export default function MedicationCard({ med, weightKg, ageMonths, gestationalWe
       {hasWeight && dose && dose.kind === 'weightDose' && (
         <div className="dose-block">
           <div className="dose-row">
-            <span className="dose-label">Dosis por administración</span>
+            <span className="dose-label">
+              Dosis por administración <span className="dose-formula">({dose.formula})</span>
+            </span>
             <span className="dose-value">
               {dose.singleMin === dose.singleMax
                 ? `${dose.singleMin} ${dose.unit}`
@@ -122,7 +130,9 @@ export default function MedicationCard({ med, weightKg, ageMonths, gestationalWe
       {hasWeight && dose && dose.kind === 'infusion' && (
         <div className="dose-block">
           <div className="dose-row">
-            <span className="dose-label">Tasa para este paciente</span>
+            <span className="dose-label">
+              Tasa para este paciente <span className="dose-formula">({dose.formula})</span>
+            </span>
             <span className="dose-value">
               {dose.rateMin === dose.rateMax
                 ? `${dose.rateMin} ${dose.unit}/${dose.timeUnit}`
@@ -190,7 +200,9 @@ export default function MedicationCard({ med, weightKg, ageMonths, gestationalWe
                 </p>
               ) : (
                 <div className="dose-row">
-                  <span className="dose-label">Dosis por administración</span>
+                  <span className="dose-label">
+                    Dosis por administración <span className="dose-formula">({dose.formula})</span>
+                  </span>
                   <span className="dose-value">
                     {dose.doseMin === dose.doseMax
                       ? `${dose.doseMin} ${dose.unit}`
@@ -217,7 +229,9 @@ export default function MedicationCard({ med, weightKg, ageMonths, gestationalWe
                 <span className="dose-value">{dose.frequencyText}</span>
               </div>
               <div className="dose-row">
-                <span className="dose-label">Dosis por administración</span>
+                <span className="dose-label">
+                  Dosis por administración <span className="dose-formula">({dose.formula})</span>
+                </span>
                 <span className="dose-value">
                   {dose.doseMin === dose.doseMax
                     ? `${dose.doseMin} ${dose.unit}`

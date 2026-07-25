@@ -363,6 +363,12 @@ body {
   color: var(--muted);
 }
 
+.dose-formula {
+  font-size: 0.78rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
 .dose-value {
   font-weight: 600;
   text-align: right;
