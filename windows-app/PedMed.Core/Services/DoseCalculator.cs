@@ -16,6 +16,17 @@ public static class DoseCalculator
         return Math.Round(value * factor, MidpointRounding.AwayFromZero) / factor;
     }
 
+    /// <summary>Formatea el rango de dosis por kg usado en el cálculo, ej. "10 – 15 mg/kg".</summary>
+    private static string FormatPerKgFormula(double min, double max, string unit)
+    {
+        return Math.Abs(min - max) < 0.0001
+            ? $"{FmtNum(min)} {unit}"
+            : $"{FmtNum(min)} – {FmtNum(max)} {unit}";
+    }
+
+    private static string FmtNum(double v) =>
+        v.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture);
+
     /// <summary>Determines the age-safety badge/level for a medication given the patient's age in months.</summary>
     public static AgeSafetyResult GetAgeSafety(Medication med, double? ageMonths)
     {
@@ -63,6 +74,7 @@ public static class DoseCalculator
         return new DoseResult
         {
             Kind = DoseType.Standard,
+            Formula = FormatPerKgFormula(med.MgPerKgMin!.Value, med.MgPerKgMax!.Value, "mg/kg"),
             SingleMin = Round(singleMin),
             SingleMax = Round(singleMax),
             DailyMax = Round(dailyMax),
@@ -84,6 +96,8 @@ public static class DoseCalculator
         return new DoseResult
         {
             Kind = DoseType.Azithromycin,
+            DayOneFormula = FormatPerKgFormula(med.DayOneMgPerKg!.Value, med.DayOneMgPerKg!.Value, "mg/kg"),
+            MaintenanceFormula = FormatPerKgFormula(med.MaintenanceMgPerKg!.Value, med.MaintenanceMgPerKg!.Value, "mg/kg"),
             DayOne = Round(dayOne),
             Maintenance = Round(maintenance),
             CappedDayOne = rawDayOne > med.DayOneMaxMg.Value,
@@ -115,6 +129,7 @@ public static class DoseCalculator
         return new DoseResult
         {
             Kind = DoseType.WeightDose,
+            Formula = FormatPerKgFormula(med.PerKgMin!.Value, med.PerKgMax!.Value, $"{med.Unit}/kg"),
             Unit = med.Unit,
             SingleMin = Round(singleMin, 2),
             SingleMax = Round(singleMax, 2),
@@ -135,6 +150,7 @@ public static class DoseCalculator
         return new DoseResult
         {
             Kind = DoseType.Infusion,
+            Formula = FormatPerKgFormula(med.PerKgMin!.Value, med.PerKgMax!.Value, $"{med.Unit}/kg/{med.TimeUnit}"),
             Unit = med.Unit,
             TimeUnit = med.TimeUnit,
             RateMin = Round(rateMin, 2),
@@ -200,6 +216,7 @@ public static class DoseCalculator
             Kind = DoseType.NeonatalTier,
             NeedsInput = false,
             NeedsWeight = !hasWeight,
+            Formula = FormatPerKgFormula(tier.PerKgMin, tier.PerKgMax, $"{med.Unit}/kg"),
             DoseMin = doseMin is { } dMin ? Round(dMin, 2) : null,
             DoseMax = doseMax is { } dMax ? Round(dMax, 2) : null,
             Unit = med.Unit,
@@ -236,6 +253,7 @@ public static class DoseCalculator
             Kind = DoseType.NeonatalWeightTier,
             NeedsInput = false,
             NeedsWeight = false,
+            Formula = FormatPerKgFormula(tier.PerKgMin, tier.PerKgMax, $"{med.Unit}/kg"),
             DoseMin = Round(doseMin, 2),
             DoseMax = Round(doseMax, 2),
             Unit = med.Unit,

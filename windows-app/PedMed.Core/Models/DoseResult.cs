@@ -11,6 +11,13 @@ public sealed class DoseResult
 {
     public required DoseType Kind { get; init; }
 
+    // Rango mg/kg (u otra unidad/kg) usado en el cálculo, ej. "10 – 15 mg/kg".
+    public string? Formula { get; init; }
+
+    // Azithromycin: fórmulas separadas para día 1 y mantenimiento.
+    public string? DayOneFormula { get; init; }
+    public string? MaintenanceFormula { get; init; }
+
     // Standard
     public double? SingleMin { get; init; }
     public double? SingleMax { get; init; }

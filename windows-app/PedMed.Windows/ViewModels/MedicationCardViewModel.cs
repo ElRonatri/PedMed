@@ -146,7 +146,7 @@ public sealed class MedicationCardViewModel : ViewModelBase
             else
             {
                 DoseLines.Add(new DoseLineViewModel(
-                    "Dosis por administración",
+                    WithFormula("Dosis por administración", dose.Formula),
                     RangeOrSingle(dose.DoseMin, dose.DoseMax, dose.Unit ?? "") + CappedNote(dose.Capped)));
             }
             return;
@@ -165,7 +165,7 @@ public sealed class MedicationCardViewModel : ViewModelBase
             HasDose = true;
             DoseLines.Add(new DoseLineViewModel("Frecuencia según tramo", dose.FrequencyText ?? ""));
             DoseLines.Add(new DoseLineViewModel(
-                "Dosis por administración",
+                WithFormula("Dosis por administración", dose.Formula),
                 RangeOrSingle(dose.DoseMin, dose.DoseMax, dose.Unit ?? "") + CappedNote(dose.Capped)));
             return;
         }
@@ -186,7 +186,7 @@ public sealed class MedicationCardViewModel : ViewModelBase
         {
             case DoseType.Standard:
                 DoseLines.Add(new DoseLineViewModel(
-                    "Dosis por administración",
+                    WithFormula("Dosis por administración", d.Formula),
                     RangeOrSingle(d.SingleMin, d.SingleMax, "mg") + CappedNote(d.CappedBySingleMax)));
                 if (Med.ConcentrationMgPerMl is not null)
                 {
@@ -203,16 +203,16 @@ public sealed class MedicationCardViewModel : ViewModelBase
             case DoseType.Azithromycin:
                 var dayOneVol = Med.ConcentrationMgPerMl is not null ? $" ({Fmt(d.VolumeDayOneMl)} mL)" : "";
                 DoseLines.Add(new DoseLineViewModel(
-                    "Día 1 (dosis de carga)", $"{Fmt(d.DayOne)} mg{dayOneVol}" + CappedNote(d.CappedDayOne)));
+                    WithFormula("Día 1 (dosis de carga)", d.DayOneFormula), $"{Fmt(d.DayOne)} mg{dayOneVol}" + CappedNote(d.CappedDayOne)));
                 var maintVol = Med.ConcentrationMgPerMl is not null ? $" ({Fmt(d.VolumeMaintenanceMl)} mL)" : "";
                 DoseLines.Add(new DoseLineViewModel(
-                    "Días 2–5 (mantenimiento)", $"{Fmt(d.Maintenance)} mg{maintVol}" + CappedNote(d.CappedMaintenance)));
+                    WithFormula("Días 2–5 (mantenimiento)", d.MaintenanceFormula), $"{Fmt(d.Maintenance)} mg{maintVol}" + CappedNote(d.CappedMaintenance)));
                 DoseLines.Add(new DoseLineViewModel("Frecuencia", Med.FrequencyText));
                 break;
 
             case DoseType.WeightDose:
                 DoseLines.Add(new DoseLineViewModel(
-                    "Dosis por administración",
+                    WithFormula("Dosis por administración", d.Formula),
                     RangeOrSingle(d.SingleMin, d.SingleMax, d.Unit ?? "") + CappedNote(d.CappedBySingleMax)));
                 DoseLines.Add(new DoseLineViewModel("Vía / Frecuencia", Med.FrequencyText));
                 if (d.DailyMax is not null)
@@ -225,7 +225,7 @@ public sealed class MedicationCardViewModel : ViewModelBase
 
             case DoseType.Infusion:
                 DoseLines.Add(new DoseLineViewModel(
-                    "Tasa para este paciente",
+                    WithFormula("Tasa para este paciente", d.Formula),
                     RangeOrSingle(d.RateMin, d.RateMax, $"{d.Unit}/{d.TimeUnit}") + CappedNote(d.CappedByMaxRate)));
                 DoseLines.Add(new DoseLineViewModel("Vía / Preparación", Med.FrequencyText));
                 DoseLines.Add(new DoseLineViewModel(
@@ -248,6 +248,9 @@ public sealed class MedicationCardViewModel : ViewModelBase
     }
 
     private static string CappedNote(bool capped) => capped ? " (tope máximo aplicado)" : "";
+
+    private static string WithFormula(string label, string? formula) =>
+        string.IsNullOrEmpty(formula) ? label : $"{label} ({formula})";
 
     private static string Fmt(double? v) => v?.ToString("0.##", CultureInfo.InvariantCulture) ?? "";
 
