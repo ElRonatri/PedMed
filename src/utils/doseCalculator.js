@@ -7,6 +7,12 @@ export function round(value, decimals = 1) {
   return Math.round(value * factor) / factor
 }
 
+// Da formato al rango de dosis por kg usado en el cálculo, p. ej. "10 – 15 mg/kg".
+// Si min y max son iguales, muestra un único valor ("10 mg/kg").
+function formatPerKgFormula(min, max, unit) {
+  return min === max ? `${min} ${unit}` : `${min} – ${max} ${unit}`
+}
+
 // Determina el estado de seguridad por edad para un medicamento dado.
 // Devuelve { level: 'unknown' | 'ok' | 'caution' | 'contraindicated', text }
 export function getAgeSafety(med, ageMonths) {
@@ -50,6 +56,7 @@ function computeStandardDose(med, weightKg) {
 
   return {
     kind: 'standard',
+    formula: formatPerKgFormula(med.mgPerKgMin, med.mgPerKgMax, 'mg/kg'),
     singleMin: round(singleMin),
     singleMax: round(singleMax),
     dailyMax: round(dailyMax),
@@ -70,6 +77,8 @@ function computeAzithromycinDose(med, weightKg) {
 
   return {
     kind: 'azithromycin',
+    dayOneFormula: formatPerKgFormula(med.dayOneMgPerKg, med.dayOneMgPerKg, 'mg/kg'),
+    maintenanceFormula: formatPerKgFormula(med.maintenanceMgPerKg, med.maintenanceMgPerKg, 'mg/kg'),
     dayOne: round(dayOne),
     maintenance: round(maintenance),
     cappedDayOne: rawDayOne > med.dayOneMaxMg,
@@ -102,6 +111,7 @@ function computeWeightDose(med, weightKg) {
 
   return {
     kind: 'weightDose',
+    formula: formatPerKgFormula(med.perKgMin, med.perKgMax, `${med.unit}/kg`),
     unit: med.unit,
     singleMin: round(singleMin, 2),
     singleMax: round(singleMax, 2),
@@ -123,6 +133,7 @@ function computeInfusionDose(med, weightKg) {
 
   return {
     kind: 'infusion',
+    formula: formatPerKgFormula(med.perKgMin, med.perKgMax, `${med.unit}/kg/${med.timeUnit}`),
     unit: med.unit,
     timeUnit: med.timeUnit,
     rateMin: round(rateMin, 2),
@@ -187,6 +198,7 @@ function computeNeonatalTierDose(med, weightKg, gestationalWeeks, postnatalDays)
     kind: 'neonatalTier',
     needsInput: false,
     needsWeight: !hasWeight,
+    formula: formatPerKgFormula(tier.perKgMin, tier.perKgMax, `${med.unit}/kg`),
     doseMin: doseMin !== null ? round(doseMin, 2) : null,
     doseMax: doseMax !== null ? round(doseMax, 2) : null,
     unit: med.unit,
@@ -219,6 +231,7 @@ function computeNeonatalWeightTierDose(med, weightKg, postnatalDays) {
     kind: 'neonatalWeightTier',
     needsInput: false,
     needsWeight: false,
+    formula: formatPerKgFormula(tier.perKgMin, tier.perKgMax, `${med.unit}/kg`),
     doseMin: round(doseMin, 2),
     doseMax: round(doseMax, 2),
     unit: med.unit,
